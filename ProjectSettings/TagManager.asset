@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Dirt
+  - Object
+  - Wood
+  - ExplosiveBarrel
+  - Metal
+  - Target
+  - Concrete
+  - Wood (Static)
+  - Dirt (Static)
+  - Wall
+  - AdjacentWall
+  - SideWall
+  - Terrain
+  - Enemy
+  - ZombieGenerator
+  - ZombieHead
+  - ZombieBody
+  - Ladder
+  - Metal (Static)
+  - GasTank
+  - Blood
+  - WatchTower
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - Enemy
+  - Zombie
+  - IngoreMesh
+  - Fense
+  - IgnoreFense
+  - Inspection
+  - SpeedUp
+  - ObjectExample
+  - Bullet
+  - Radar
+  - Navmesh Agent Collider
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Radar
+    uniqueID: 132224469
+    locked: 0
