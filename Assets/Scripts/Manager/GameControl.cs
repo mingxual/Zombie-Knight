@@ -11,9 +11,11 @@ public class GameControl : MonoBehaviour
 
     public NavMeshSurface surface;
 
-    private bool isFPS;
+    public bool isFPS;
 
     public GameObject lightForScene;
+
+    public GameObject bag;
 
     private void Awake()
     {
@@ -38,6 +40,7 @@ public class GameControl : MonoBehaviour
     {
         isFPS = false;
         lightForScene.SetActive(false);
+        bag.SetActive(false);
     }
 
     void Update()
@@ -63,6 +66,15 @@ public class GameControl : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
+        }
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            bag.SetActive(true);
+        }
+        else if (Input.GetKeyUp(KeyCode.B))
+        {
+            bag.SetActive(false);
         }
     }
 

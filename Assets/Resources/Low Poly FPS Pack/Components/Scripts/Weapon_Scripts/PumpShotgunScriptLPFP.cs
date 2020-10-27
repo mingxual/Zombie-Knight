@@ -638,9 +638,12 @@ public class PumpShotgunScriptLPFP : MonoBehaviour {
 		//Throw grenade when pressing G key
 		if (Input.GetKeyDown (KeyCode.G) && !isInspecting) 
 		{
-			StartCoroutine (GrenadeSpawnDelay ());
-			//Play grenade throw animation
-			anim.Play("GrenadeThrow", 0, 0.0f);
+			if (WeaponSwitch.instance.getGrenade())
+			{
+				StartCoroutine(GrenadeSpawnDelay());
+				//Play grenade throw animation
+				anim.Play("GrenadeThrow", 0, 0.0f);
+			}
 		}
 
 		//If out of ammo

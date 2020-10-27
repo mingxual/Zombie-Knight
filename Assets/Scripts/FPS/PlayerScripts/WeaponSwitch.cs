@@ -15,6 +15,8 @@ public class WeaponSwitch : MonoBehaviour
 
     private List<KeyValuePair<int, int>> weaponMagazines;
 
+    public int num_Grenades = 0;
+
     private void Awake()
     {
         if(instance == null)
@@ -79,58 +81,37 @@ public class WeaponSwitch : MonoBehaviour
     // Get the bag list from BagManager.cs
     public void getWeaponList()
     {
-        Dictionary<int, int> bagList = BagManager.instance.bagContent;
-        foreach(KeyValuePair<int, int> entry in bagList)
+        List<int> num_bullets = BagManager.instance.num_bullets;
+        for (int i = 0; i < num_bullets.Count - 1; ++i)
         {
-            weaponMagazines.Add(entry);
+            if (num_bullets[i] > 0)
+            {
+                weaponMagazines.Add(new KeyValuePair<int, int>(i, num_bullets[i]));
+            }
         }
 
-        sortAlgorithm comp = new sortAlgorithm();
-        weaponMagazines.Sort(comp);
-
-        int numMagazines = -1;
-        int key = -1;
-        int value = -1;
-
-        for(int i = 0; i < weaponMagazines.Count; ++i)
-        {
-            numMagazines = weaponMagazines[i].Value;
-            key = weaponMagazines[i].Key;
-            if (weaponList[weaponMagazines[i].Key].GetComponent<AutomaticGunScriptLPFP>())
-            {
-                value = numMagazines * weaponList[weaponMagazines[i].Key].GetComponent<AutomaticGunScriptLPFP>().ammo;
-            }
-            else if (weaponList[weaponMagazines[i].Key].GetComponent<HandgunScriptLPFP>())
-            {
-                value = numMagazines * weaponList[weaponMagazines[i].Key].GetComponent<HandgunScriptLPFP>().ammo;
-            }
-            else if (weaponList[weaponMagazines[i].Key].GetComponent<PumpShotgunScriptLPFP>())
-            {
-                value = numMagazines * weaponList[weaponMagazines[i].Key].GetComponent<PumpShotgunScriptLPFP>().ammo;
-            }
-            else if (weaponList[weaponMagazines[i].Key].GetComponent<BoltActionSniperScriptLPFP>())
-            {
-                value = numMagazines * weaponList[weaponMagazines[i].Key].GetComponent<BoltActionSniperScriptLPFP>().ammo;
-            }
-            else if (weaponList[weaponMagazines[i].Key].GetComponent<SniperScriptLPFP>())
-            {
-                value = numMagazines * weaponList[weaponMagazines[i].Key].GetComponent<SniperScriptLPFP>().ammo;
-            }
-            else if(weaponList[weaponMagazines[i].Key].GetComponent<GrenadeLauncherScriptLPFP>())
-            {
-                value = numMagazines * weaponList[weaponMagazines[i].Key].GetComponent<GrenadeLauncherScriptLPFP>().ammo;
-            }
-            else if(weaponList[weaponMagazines[i].Key].GetComponent<RocketLauncherScriptLPFP>())
-            {
-                value = numMagazines * weaponList[weaponMagazines[i].Key].GetComponent<RocketLauncherScriptLPFP>().ammo;
-            }
-
-            weaponMagazines[i] = new KeyValuePair<int, int>(key, value);
-        }
+        num_Grenades = num_bullets[num_bullets.Count - 1];
 
         count = weaponMagazines.Count;
         currSelectedIdx = 0;
         switchWeapon(currSelectedIdx);
+    }
+
+    // Throw the grenade
+    public bool getGrenade()
+    {
+        if (num_Grenades > 0)
+        {
+            num_Grenades -= 1;
+            int index = BagManager.instance.num_bullets.Count - 1;
+            BagManager.instance.num_bullets[index] = num_Grenades;
+            int cellIndex = BagManager.instance.bagContent[index];
+            GridControl.instance.cells[cellIndex].AdjustNumBullets(num_Grenades);
+
+            return true;
+        }
+
+        return false;
     }
 
     // Update the count (return the number of ammos available for the current magazine)
@@ -140,7 +121,7 @@ public class WeaponSwitch : MonoBehaviour
         int value = weaponMagazines[currSelectedIdx].Value;
 
         int numAmmoForCharge = -1;
-        if(value >= capacity)
+        if (value >= capacity)
         {
             numAmmoForCharge = capacity;
         }
@@ -152,6 +133,14 @@ public class WeaponSwitch : MonoBehaviour
         value -= numAmmoForCharge;
         numAmmoLeft.text = value.ToString();
         weaponMagazines[currSelectedIdx] = new KeyValuePair<int, int>(key, value);
+
+        BagManager.instance.num_bullets[currSelectedIdx] = value;
+        int cellIndex = BagManager.instance.bagContent[key];
+        GridControl.instance.cells[cellIndex].AdjustNumBullets(value);
+        if (WeaponDisplayArea.instance.currIndex == cellIndex)
+        {
+            WeaponDisplayArea.instance.numAmmos.text = value.ToString();
+        }
 
         return numAmmoForCharge;
     }
