@@ -130,7 +130,7 @@ public class GunnerZombieControl : MonoBehaviour
     public void stopFire()
     {
         hasFired = false;
-        agent.updatePosition = true;
+        if(agent != null) agent.updatePosition = true;
         animator.Play("Walk", 0);
         finishFire = true;
     }

@@ -116,7 +116,7 @@ public class GrenadeScript : MonoBehaviour {
 			// If the explosion hits objects with "ZombieBody" tag
 			if (hit.GetComponent<Collider>().tag == "ZombieBody")
 			{
-				hit.gameObject.GetComponent<EnemyHealth>().GetDamage(200, false);
+				hit.gameObject.GetComponentInParent<EnemyHealth>().GetDamage(200, false);
 			}
 
 			//If the explosion hits "Player" tag
