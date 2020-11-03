@@ -4,43 +4,20 @@ using UnityEngine;
 
 public class ZombieGenerator : MonoBehaviour
 {
-    public List<GameObject> zombies;
-
-    public PlayerHealth playerHealth;
-    public Transform player;
-    public Utility utility;
-
-    public SpeedUp playerSpeedUp;
-
-    public Transform enemyParent;
-
-    private int index;
-
-    public float range;
+    public GameObject[] zombieList;
+    public float[] zombieTime;
 
     void Start()
     {
-        index = 0;
-        InvokeRepeating("GenerateNext", 7.5f, 1.5f);
+        for (int i = 0; i < zombieList.Length; i++)
+        {
+            StartCoroutine(GenerateZombie(i));
+        }
     }
 
-    private void GenerateNext()
+    private IEnumerator GenerateZombie(int index)
     {
-        if(index < zombies.Count)
-        {
-            Vector3 offset = new Vector3(Random.Range(-range, range), 0.0f, Random.Range(-range, range));
-            GameObject zombie = Instantiate(zombies[index], transform.position + offset, transform.rotation);
-            zombie.transform.SetParent(enemyParent);
-            /*EnemyMoveControl enemy = zombie.GetComponent<EnemyMoveControl>();
-            enemy.playerHealth = playerHealth;
-            enemy.utility = utility;
-            enemy.Player = player;*/
-            zombie.GetComponent<updateMaterial>().playerSpeedUp = playerSpeedUp;
-            ++index;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        yield return new WaitForSeconds(zombieTime[index]);
+        zombieList[index].SetActive(true);
     }
 }

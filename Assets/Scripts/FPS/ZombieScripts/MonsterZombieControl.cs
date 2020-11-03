@@ -8,6 +8,7 @@ public class MonsterZombieControl : MonoBehaviour
     public Animator animator;
 
     public PlayerHealth playerHealth;
+    public EnemyHealth enemyHealth;
 
     public Rigidbody body;
 
@@ -44,23 +45,18 @@ public class MonsterZombieControl : MonoBehaviour
         currFrame = 0;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            print(isJumping);
-        }
-    }
-
     void FixedUpdate()
     {
+        if (enemyHealth.dead)
+            return;
+
         if (isAttacking)
         {
             attackTime += Time.deltaTime;
             if (attackTime >= attackLength)
             {
                 attackTime = 0.0f;
-                playerHealth.getHarm(damagePlayerPoint);
+                playerHealth.getHarm(damagePlayerPoint, true);
             }
         }
 

@@ -448,11 +448,11 @@ GameObject:
   - component: {fileID: 392854141}
   m_Layer: 9
   m_Name: MonsterZombie
-  m_TagString: Untagged
+  m_TagString: MonsterZombie
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3368599138163417611
 Transform:
   m_ObjectHideFlags: 0
@@ -544,8 +544,10 @@ MonoBehaviour:
   blip: {fileID: 1255171029014725179}
   head: {fileID: 8521833975772801865}
   body: {fileID: 8521833976521806287}
+  agentCollider: {fileID: 0}
   speedUp: {fileID: 0}
   headShot: {fileID: 190482337653032998, guid: 4b894a2ce15ac3a4789bd0a2daa4a251, type: 3}
+  gameControl: {fileID: 0}
 --- !u!114 &1875766487359953346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -560,6 +562,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 3451404706979249411}
   playerHealth: {fileID: 0}
+  enemyHealth: {fileID: 3365338186846339441}
   body: {fileID: 3365338186846339442}
   Player: {fileID: 0}
   utility: {fileID: 0}

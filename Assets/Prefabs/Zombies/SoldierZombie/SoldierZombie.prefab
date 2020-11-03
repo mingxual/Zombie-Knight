@@ -131,7 +131,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.27, y: 0.45, z: 0.35}
+  m_Size: {x: 0.33, y: 0.45, z: 0.35}
   m_Center: {x: 0, y: 1.56, z: 0.06}
 --- !u!1 &3517937631044658168
 GameObject:
@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: 5070131784972626302}
   m_Layer: 9
   m_Name: SoldierZombie
-  m_TagString: Untagged
+  m_TagString: SoldierZombie
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -296,6 +296,7 @@ MonoBehaviour:
   agent: {fileID: 3517747396458597747}
   animator: {fileID: 3567841143432981112}
   playerHealth: {fileID: 0}
+  enemyHealth: {fileID: 5070131784972626302}
   Player: {fileID: 0}
   utility: {fileID: 0}
   damageObjPoint: 50
@@ -319,7 +320,10 @@ MonoBehaviour:
   blip: {fileID: 7906780807539670536}
   head: {fileID: 3517747396696134543}
   body: {fileID: 579612089}
+  agentCollider: {fileID: 2014806458}
   speedUp: {fileID: 0}
+  headShot: {fileID: 190482337653032998, guid: 4b894a2ce15ac3a4789bd0a2daa4a251, type: 3}
+  gameControl: {fileID: 0}
 --- !u!1 &3517992490210915070
 GameObject:
   m_ObjectHideFlags: 0

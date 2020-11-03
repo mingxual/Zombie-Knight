@@ -50,11 +50,11 @@ public class ExplosionAttack : MonoBehaviour
 	{
 		if (other.tag == "Player")
 		{
-			other.GetComponent<PlayerHealth>().getHarm(50);
+			other.GetComponent<PlayerHealth>().getHarm(50, false);
 		}
 		else if (other.tag == "Wall" || other.tag == "SideWall")
 		{
-			other.gameObject.SetActive(false);
+			other.gameObject.GetComponent<ObjectUpdate>().Destroy();
 		}
 	}
 }

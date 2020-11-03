@@ -30,4 +30,10 @@ public class ObjectUpdate : MonoBehaviour
         }
         return true;
     }
+
+    public void Destroy()
+    {
+        transform.gameObject.SetActive(false);
+        surface.BuildNavMesh();
+    }
 }

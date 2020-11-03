@@ -11,8 +11,7 @@ public class GunnerZombieControl : MonoBehaviour
     public Animator animator;
 
     public PlayerHealth playerHealth;
-
-    private ObjectUpdate objUpdate;
+    public EnemyHealth enemyHealth;
 
     public Transform Player;
     public Utility utility;
@@ -27,6 +26,8 @@ public class GunnerZombieControl : MonoBehaviour
     public Transform gunnerBomb;
     private float coolLength, coolTimer;
     private bool hasFired, finishFire;
+
+    private ObjectUpdate obj;
 
     void Start()
     {
@@ -43,6 +44,9 @@ public class GunnerZombieControl : MonoBehaviour
 
     void Update()
     {
+        if (enemyHealth.dead)
+            return;
+
         agent.SetDestination(Player.position);
         path = new NavMeshPath();
         agent.CalculatePath(agent.destination, path);
@@ -69,6 +73,8 @@ public class GunnerZombieControl : MonoBehaviour
             agent.updateRotation = true;
             transform.position = pos;
             finishAttack = false;
+            animator.SetBool("attack", false);
+            isAttacking = false;
         }
 
         if (finishFire)
@@ -94,14 +100,13 @@ public class GunnerZombieControl : MonoBehaviour
                     finishHit = true;
                     if (attackPlayer)
                     {
-                        playerHealth.getHarm(damagePlayerPoint);
+                        playerHealth.getHarm(damagePlayerPoint, true);
                     }
                     else
                     {
-                        if (objUpdate && !objUpdate.Damage(damageObjPoint))
+                        if (obj)
                         {
-                            animator.SetBool("attack", false);
-                            isAttacking = false;
+                            obj.Destroy();
                             finishAttack = true;
                         }
                     }
@@ -144,7 +149,6 @@ public class GunnerZombieControl : MonoBehaviour
             agent.CalculatePath(Player.position, path);
             if (path.status != NavMeshPathStatus.PathComplete)
             {
-                objUpdate = collision.collider.gameObject.GetComponent<ObjectUpdate>();
                 agent.updatePosition = false;
                 transform.rotation = Quaternion.LookRotation
                     (-(collision.contacts[0].normal), Vector3.up);
@@ -153,6 +157,7 @@ public class GunnerZombieControl : MonoBehaviour
                 isAttacking = true;
                 attackPlayer = false;
                 pos = transform.position;
+                obj = collision.collider.gameObject.GetComponent<ObjectUpdate>();
             }
         }
         if (collision.collider.gameObject.tag == "Player")
@@ -167,14 +172,11 @@ public class GunnerZombieControl : MonoBehaviour
 
     void OnCollisionExit(Collision collision)
     {
-        if (utility.belongToObj(collision.collider.gameObject.tag) ||
-            collision.collider.gameObject.tag == "Player")
+        if (collision.collider.gameObject.tag == "Player")
         {
             if (isAttacking)
             {
                 finishAttack = true;
-                animator.SetBool("attack", false);
-                isAttacking = false;
             }
         }
     }

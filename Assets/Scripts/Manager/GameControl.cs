@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameControl : MonoBehaviour
 {
@@ -17,9 +19,27 @@ public class GameControl : MonoBehaviour
 
     public GameObject bag;
 
+    public GameObject forgetBuyWeapon;
+
+    private int currZombieNum;
+    private int currLevel = 0;
+
+    public float FinishFPSTime;
+
+    public RoundTitle roundTitle;
+
+    public GameObject player;
+
+    public GameObject constructionPauseMenu, fpsPauseMenu;
+    public fpsControl fps_control;
+
+    public Text zombieNumberText;
+
+    public GameObject[] mLevels;
+
     private void Awake()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = this;
         }
@@ -42,30 +62,28 @@ public class GameControl : MonoBehaviour
         lightForScene.SetActive(false);
         bag.SetActive(false);
     }
-
+    
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            isFPS = !isFPS;
-            if (isFPS)
+            if (!isFPS)
             {
-                if (BagManager.instance.bagContent.Count == 0)
-                {
-                    Debug.Log("You have to buy at least one weapon to enter the game");
-                }
-                else
-                {
-                    WeaponSwitch.instance.getWeaponList();
-                    switchToFPS();
-                }
+                constructionPauseMenu.SetActive(true);
             }
-            else switchToConstruct();
+            else
+            {
+                /*Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+                Time.timeScale = 0;
+                AudioListener.volume = 0;
+                fpsPauseMenu.SetActive(true);*/
+            }
         }
 
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.J))
         {
-            Application.Quit();
+            print(fps_control.muted);
         }
 
         if (Input.GetKeyDown(KeyCode.B))
@@ -80,23 +98,119 @@ public class GameControl : MonoBehaviour
 
     public void switchToConstruct()
     {
+        isFPS = false;
         Construct.SetActive(true);
         FPS.SetActive(false);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+
+        player.GetComponent<SpeedUp>().turnOffSpeedUp();
     }
 
     public void switchToFPS()
     {
+        if (BagManager.instance.bagContent.Count == 0)
+        {
+            forgetBuyWeapon.SetActive(true);
+            return;
+        }
+
+        isFPS = true;
+        WeaponSwitch.instance.getWeaponList();
         Construct.SetActive(false);
         FPS.SetActive(true);
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+        if (currLevel < mLevels.Length - 1)
+        {
+            roundTitle.updateText("Round " + (currLevel + 1).ToString());
+        }
+        else
+        {
+            roundTitle.updateText("Boss");
+        }
+        roundTitle.gameObject.SetActive(true);
+
         surface.BuildNavMesh();
+
+        GameObject generator = mLevels[currLevel];
+        generator.SetActive(true);
+        currZombieNum = generator.GetComponent<ZombieGenerator>().zombieList.Length;
+        zombieNumberText.text = "Zombie Left: " + currZombieNum.ToString();
     }
 
-    public void endGame()
+    public void killOneZombie()
+    {
+        currZombieNum--;
+        zombieNumberText.text = "Zombie Left: " + currZombieNum.ToString();
+        if (currZombieNum <= 0)
+        {
+            StartCoroutine("FinishCurrentLevel");
+        }
+    }
+
+    private IEnumerator FinishCurrentLevel()
+    {
+        yield return new WaitForSeconds(FinishFPSTime);
+        mLevels[currLevel].SetActive(false);
+        currLevel++;
+        if (currLevel == mLevels.Length)
+        {
+            winGame();
+        }
+        else
+        {
+            switchToConstruct();
+        }
+    }
+
+    public void failGame()
     {
 
+    }
+
+    public void winGame()
+    {
+
+    }
+
+    public void ReloadGame()
+    {
+        SceneManager.LoadScene("Gameplay");
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("StartGame");
+    }
+
+    public void Pause(bool pause)
+    {
+        if (pause)
+        {
+            Time.timeScale = 0.0f;
+        }
+        else 
+        {
+            Time.timeScale = 1.0f;
+        }
+    }
+
+    public void CloseFPSPauseMenu()
+    {
+        if (!fps_control.muted)
+        {
+            AudioListener.volume = 1;
+        }
+        Time.timeScale = 1;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        fpsPauseMenu.SetActive(false);
     }
 }

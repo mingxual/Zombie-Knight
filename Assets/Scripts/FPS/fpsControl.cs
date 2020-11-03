@@ -5,7 +5,14 @@ using UnityEngine;
 public class fpsControl : MonoBehaviour
 {
     public GameObject realRadar, fpsRadar;
-    public bool usingFpsRadar;
+    public GameObject environmentEffect;
+    public bool usingFpsRadar, muted;
+
+    void Start()
+    {
+        usingFpsRadar = true;
+        muted = false;
+    }
 
     void Update()
     {
@@ -19,5 +26,27 @@ public class fpsControl : MonoBehaviour
             fpsRadar.SetActive(false);
             realRadar.SetActive(true);
         }
+    }
+
+    public void selectRadar(int val)
+    {
+        if (val == 0)
+        {
+            usingFpsRadar = true;
+        }
+        else
+        {
+            usingFpsRadar = false;
+        }
+    }
+
+    public void setSoundEffect(bool val)
+    {
+        muted = !val;
+    }
+
+    public void setEnvironmentEffect(bool val)
+    {
+        environmentEffect.SetActive(val);
     }
 }

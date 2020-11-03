@@ -751,11 +751,11 @@ GameObject:
   - component: {fileID: 4736655343225127755}
   m_Layer: 9
   m_Name: Gunner
-  m_TagString: Untagged
+  m_TagString: Gunner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8313105376263134328
 Transform:
   m_ObjectHideFlags: 0
@@ -765,7 +765,7 @@ Transform:
   m_GameObject: {fileID: 8311031106722914432}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0.23, z: 2.71}
-  m_LocalScale: {x: 1.7000002, y: 1.7, z: 1.7000002}
+  m_LocalScale: {x: 1.7, y: 1.7, z: 1.7}
   m_Children:
   - {fileID: 8304858013583282492}
   - {fileID: 8305143861054419360}
@@ -824,7 +824,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3
+  m_Speed: 2
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -870,8 +870,10 @@ MonoBehaviour:
   blip: {fileID: 5670018026559775350}
   head: {fileID: 4110170507116266948}
   body: {fileID: 268884481751664407}
+  agentCollider: {fileID: 1163182110098021427}
   speedUp: {fileID: 0}
   headShot: {fileID: 190482337653032998, guid: 4b894a2ce15ac3a4789bd0a2daa4a251, type: 3}
+  gameControl: {fileID: 0}
 --- !u!114 &4736655343225127755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -887,6 +889,7 @@ MonoBehaviour:
   agent: {fileID: 8728807112450906778}
   animator: {fileID: 8215521642479955392}
   playerHealth: {fileID: 0}
+  enemyHealth: {fileID: 611556083447638619}
   Player: {fileID: 0}
   utility: {fileID: 0}
   damageObjPoint: 50

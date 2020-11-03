@@ -1413,11 +1413,11 @@ GameObject:
   - component: {fileID: 4417905093655032671}
   m_Layer: 9
   m_Name: MedicZombie
-  m_TagString: Untagged
+  m_TagString: MedicZombie
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5311335169674135204
 Transform:
   m_ObjectHideFlags: 0
@@ -1528,6 +1528,7 @@ MonoBehaviour:
   agent: {fileID: 5314109319908177497}
   animator: {fileID: 5253634405763682830}
   playerHealth: {fileID: 0}
+  enemyHealth: {fileID: 4417905093655032671}
   Player: {fileID: 0}
   utility: {fileID: 0}
   damageObjPoint: 50
@@ -1551,6 +1552,10 @@ MonoBehaviour:
   blip: {fileID: 7433439395431821809}
   head: {fileID: 7890141750908012368}
   body: {fileID: 7890141751173394903}
+  agentCollider: {fileID: 7890141749289655832}
+  speedUp: {fileID: 0}
+  headShot: {fileID: 190482337653032998, guid: 4b894a2ce15ac3a4789bd0a2daa4a251, type: 3}
+  gameControl: {fileID: 0}
 --- !u!1 &5314119730277556164
 GameObject:
   m_ObjectHideFlags: 0

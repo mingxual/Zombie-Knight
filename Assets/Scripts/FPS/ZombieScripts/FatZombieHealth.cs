@@ -20,11 +20,8 @@ public class FatZombieHealth : EnemyHealth
         audio.Play();
         dead = true;
         GetComponent<Rigidbody>().isKinematic = true;
-        agent.updatePosition = false;
-        agent.updateRotation = false;
+        agent.enabled = false;
         blip.SetActive(false);
-        head.layer = 0;
-        body.layer = 0;
 
         yield return new WaitForSeconds
             (animator.GetCurrentAnimatorStateInfo(0).length / animator.speed);

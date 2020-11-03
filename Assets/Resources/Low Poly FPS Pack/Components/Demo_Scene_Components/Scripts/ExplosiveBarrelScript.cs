@@ -95,7 +95,7 @@ public class ExplosiveBarrelScript : MonoBehaviour {
 			//If the explosion hits "Player" tag
 			if (hit.GetComponent<Collider>().tag == "Player")
 			{
-				hit.GetComponent<PlayerHealth>().getHarm(damagePoints);
+				hit.GetComponent<PlayerHealth>().getHarm(damagePoints, false);
 			}
 		}
 

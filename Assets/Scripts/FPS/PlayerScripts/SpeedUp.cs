@@ -18,8 +18,6 @@ public class SpeedUp : MonoBehaviour
     public Image fillin;
     public GameObject xkey;
 
-    private ChromaticAberration chromaticAberration;
-
     void Start()
     {
         postProcessLayer.Init(postProcessResources);
@@ -41,9 +39,9 @@ public class SpeedUp : MonoBehaviour
         }
     }
 
-    public void increaseFillin(bool head)
+    public void increaseFillin(int damagePoint)
     {
-        fillin.fillAmount += head ? 0.05f : 0.02f;
+        fillin.fillAmount += damagePoint/5000f;
     }
 
     private IEnumerator speedUp()
@@ -54,6 +52,11 @@ public class SpeedUp : MonoBehaviour
 
         yield return new WaitForSeconds(speedingTime);
 
+        turnOffSpeedUp();
+    }
+
+    public void turnOffSpeedUp()
+    {
         isSpeedingUp = false;
         controller.walkingSpeed = 5.0f;
         volume.SetActive(false);

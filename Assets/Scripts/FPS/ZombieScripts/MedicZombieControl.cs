@@ -11,6 +11,7 @@ public class MedicZombieControl : MonoBehaviour
     public Animator animator;
 
     public PlayerHealth playerHealth;
+    public EnemyHealth enemyHealth;
 
     private ObjectUpdate objUpdate;
 
@@ -35,6 +36,9 @@ public class MedicZombieControl : MonoBehaviour
 
     void Update()
     {
+        if (enemyHealth.dead)
+            return;
+
         agent.SetDestination(Player.position);
         path = new NavMeshPath();
         agent.CalculatePath(agent.destination, path);
@@ -65,7 +69,7 @@ public class MedicZombieControl : MonoBehaviour
                     attackTime = 0.0f;
                     if (attackPlayer)
                     {
-                        playerHealth.getHarm(damagePlayerPoint);
+                        playerHealth.getHarm(damagePlayerPoint, true);
                     }
                     else
                     {

@@ -13,6 +13,8 @@ public class PlayerHealth : MonoBehaviour
 
     private int currHealth;
 
+    public GameObject[] scratchEffects;
+
     private void Awake()
     {
         if(instance == null)
@@ -30,7 +32,7 @@ public class PlayerHealth : MonoBehaviour
         currHealth = totalHealth;        
     }
 
-    public void getHarm(int points)
+    public void getHarm(int points, bool scratch)
     {
         currHealth -= points;
         currHealth = currHealth > 0 ? currHealth : 0;
@@ -38,9 +40,12 @@ public class PlayerHealth : MonoBehaviour
         health.fillAmount = (float)currHealth / (float)totalHealth;
         healthPanel.text = "HP: " + currHealth.ToString();
 
+        Instantiate(scratchEffects[Random.Range(0, scratchEffects.Length)], 
+            Vector3.zero, Quaternion.identity);
+
         if (currHealth <= 0)
         {
-            GameControl.instance.endGame();
+            GameControl.instance.failGame();
         }
     }
 }

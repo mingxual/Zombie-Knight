@@ -10,7 +10,7 @@ public class TorchManager : MonoBehaviour
  
     public float radius;
 
-    private int currIndex = 1;
+    private int currIndex = 5;
 
     public bool isCloseToTorch(Vector3 pos)
     {

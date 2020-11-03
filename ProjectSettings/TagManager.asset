@@ -26,6 +26,12 @@ TagManager:
   - GasTank
   - Blood
   - WatchTower
+  - spikes
+  - Gunner
+  - FatZombie
+  - SoldierZombie
+  - MonsterZombie
+  - MedicZombie
   layers:
   - Default
   - TransparentFX
