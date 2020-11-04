@@ -540,6 +540,7 @@ MonoBehaviour:
   agent: {fileID: 0}
   animator: {fileID: 3451404706979249411}
   totalHealth: 500
+  value: 150
   dead: 0
   blip: {fileID: 1255171029014725179}
   head: {fileID: 8521833975772801865}
@@ -593,7 +594,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 88
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500

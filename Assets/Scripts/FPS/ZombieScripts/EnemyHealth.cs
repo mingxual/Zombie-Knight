@@ -12,6 +12,8 @@ public class EnemyHealth : MonoBehaviour
     public int totalHealth;
     private int currHealth;
 
+    public int value;
+
     public bool dead;
 
     public GameObject blip, head, body, agentCollider;
@@ -22,28 +24,16 @@ public class EnemyHealth : MonoBehaviour
 
     public GameControl gameControl;
 
-    /*public Canvas canvasLayer;
-    public Slider healthDisplay;
-    public Camera cameraView;*/
-
     void Start()
     {
         currHealth = totalHealth;
-        //healthDisplay.value = 1;
     }
 
-    void Update()
-    {
-        //canvasLayer.transform.rotation = Camera.main.transform.rotation;
-        //healthDisplay.transform.position = Camera.main.WorldToScreenPoint(transform.position);
-    }
-
-    public void GetDamage(int damage, bool isHead)
+    public void GetDamage(int damage, bool isHead, bool playerAnimation = true)
     {
         if (dead) return;
         currHealth -= damage;
-        //healthDisplay.value = currHealth / totalHealth;
-
+        
         speedUp.increaseFillin(damage);
 
         if (currHealth <= 0)
@@ -56,13 +46,16 @@ public class EnemyHealth : MonoBehaviour
             if(agentCollider)
                 agentCollider.SetActive(false);
 
-            gameControl.killOneZombie();
+            gameControl.killOneZombie(value);
 
             StartCoroutine("WaitForDeadAnimationFinish");
         }
         else
         {
-            animator.Play("Get_Hit", 0, 0);
+            if (playerAnimation)
+            {
+                animator.Play("Get_Hit", 0, 0);
+            }
         }
     }
 

@@ -25,6 +25,9 @@ public class MedicZombieControl : MonoBehaviour
 
     private Vector3 pos;
 
+    private float spikeTimer;
+    private ObjectUpdate spike;
+
     void Start()
     {
         path = new NavMeshPath();
@@ -126,6 +129,39 @@ public class MedicZombieControl : MonoBehaviour
                 animator.SetBool("attack", false);
                 isAttacking = false;
             }
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "SpikeHurt")
+        {
+            agent.speed /= 1.5f;
+            spike = other.transform.parent.GetComponent<ObjectUpdate>();
+        }
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "SpikeHurt")
+        {
+            spikeTimer += Time.deltaTime;
+            if (spikeTimer >= 0.3f)
+            {
+                enemyHealth.GetDamage(5, false, false);
+                if (spike)
+                    spike.Damage(1);
+                spikeTimer = 0.0f;
+            }
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "SpikeHurt")
+        {
+            agent.speed *= 1.5f;
+            spike = null;
         }
     }
 }

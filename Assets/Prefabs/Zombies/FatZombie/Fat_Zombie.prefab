@@ -637,6 +637,7 @@ MonoBehaviour:
   agent: {fileID: 372509983019720394}
   animator: {fileID: 1462191247433611951}
   playerHealth: {fileID: 0}
+  enemyHealth: {fileID: 339214009326549030}
   Player: {fileID: 0}
   utility: {fileID: 0}
   damageObjPoint: 50
@@ -656,7 +657,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 372509983019720394}
   animator: {fileID: 1462191247433611951}
-  totalHealth: 700
+  totalHealth: 1000
+  value: 200
   dead: 0
   blip: {fileID: 8211824365026004080}
   head: {fileID: 343347662228905384}
@@ -679,13 +681,13 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: aaa27d0928de2424bb8b4e44273bc553, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.69
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 24
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500

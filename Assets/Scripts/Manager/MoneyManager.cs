@@ -8,7 +8,9 @@ public class MoneyManager : MonoBehaviour
     public static MoneyManager instance;
     public int totalMoney;
     public int currMoney;
-    public Text moneyText;
+    public Text moneyTextConstruct, moneyTextFPS;
+
+    public AlertMessage alertMenu;
 
     private void Awake()
     {
@@ -26,7 +28,8 @@ public class MoneyManager : MonoBehaviour
     void Start()
     {
         currMoney = totalMoney;
-        moneyText.text = currMoney.ToString();
+        moneyTextConstruct.text = currMoney.ToString();
+        moneyTextFPS.text = "Money: " + currMoney.ToString();
     }
 
     // Update is called once per frame
@@ -39,19 +42,27 @@ public class MoneyManager : MonoBehaviour
     {
         if(currMoney - amount < 0)
         {
+            alertMenu.alertMessage("You don't have enough money");
             return false;
         }
         else
         {
             currMoney -= amount;
-            moneyText.text = currMoney.ToString();
+            moneyTextConstruct.text = currMoney.ToString();
+            moneyTextFPS.text = "Money: " + currMoney.ToString();
             return true;
         }
+    }
+
+    public void buyMedicineBag(int amount)
+    {
+        deductMoney(amount);
     }
 
     public void gainMoney(int amount)
     {
         currMoney += amount;
-        moneyText.text = currMoney.ToString();
+        moneyTextConstruct.text = currMoney.ToString();
+        moneyTextFPS.text = "Money: " + currMoney.ToString();
     }
 }

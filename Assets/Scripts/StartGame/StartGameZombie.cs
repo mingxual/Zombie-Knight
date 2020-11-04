@@ -9,11 +9,12 @@ public class StartGameZombie : MonoBehaviour
     public float totalTime;
     private float currTime = 0.0f;
 
-    public enum OPTION { startgame, guidemenu, exit };
+    public enum OPTION { startgame, handbook, exit };
     public OPTION option;
 
-    public GameObject player, guidemenu;
+    public GameObject handbook, loadMenu;
 
+    public FPSControllerLPFP.FpsControllerLPFP controller;
     public StartSniper sniper;
 
     void Update()
@@ -33,9 +34,9 @@ public class StartGameZombie : MonoBehaviour
             {
                 StartCoroutine("WaitForStartGame");
             }
-            else if (option == OPTION.guidemenu)
+            else if (option == OPTION.handbook)
             {
-                StartCoroutine("WaitForGuide");
+                StartCoroutine("WaitForHandbook");
             }
             else if (option == OPTION.exit)
             {
@@ -46,43 +47,38 @@ public class StartGameZombie : MonoBehaviour
 
     private IEnumerator WaitForStartGame()
     {
-        float counter = 0;
+        controller.enabled = false;
         sniper.enabled = false;
-
-        while (counter < 2.0f)
-        {
-            counter += Time.deltaTime;
-            yield return null;
-        }
-
+        yield return new WaitForSeconds(1);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        SceneManager.LoadScene("Gameplay", LoadSceneMode.Single);
+        loadMenu.SetActive(true);
+        StartCoroutine("WaitForStartGame2");
     }
 
-    private IEnumerator WaitForGuide()
+    private IEnumerator WaitForStartGame2()
     {
-        float counter = 0;
-  
-        while (counter < 1.0f)
-        {
-            counter += Time.deltaTime;
-            yield return null;
-        }
-        player.SetActive(false);
-        guidemenu.SetActive(true);
+        yield return new WaitForSeconds(1);
+        loadMenu.GetComponent<LoadMenu>().startLoad();
+    }
+
+    private IEnumerator WaitForHandbook()
+    {
+        controller.enabled = false;
+        sniper.enabled = false;
+        yield return new WaitForSeconds(1);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        handbook.SetActive(true);
     }
 
     private IEnumerator WaitForExitGame()
     {
-        float counter = 0;
+        controller.enabled = false;
         sniper.enabled = false;
-        while (counter < 2.0f)
-        {
-            counter += Time.deltaTime;
-            yield return null;
-        }
-        print("quit");
+        yield return new WaitForSeconds(2);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         Application.Quit();
     }
 }

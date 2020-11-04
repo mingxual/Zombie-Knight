@@ -32,6 +32,8 @@ TagManager:
   - SoldierZombie
   - MonsterZombie
   - MedicZombie
+  - Spike
+  - SpikeHurt
   layers:
   - Default
   - TransparentFX
@@ -52,7 +54,7 @@ TagManager:
   - Bullet
   - Radar
   - Navmesh Agent Collider
-  - 
+  - SpikeCollider
   - 
   - 
   - 

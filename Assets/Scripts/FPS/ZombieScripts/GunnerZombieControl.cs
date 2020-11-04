@@ -29,6 +29,9 @@ public class GunnerZombieControl : MonoBehaviour
 
     private ObjectUpdate obj;
 
+    private float spikeTimer;
+    private ObjectUpdate spike;
+
     void Start()
     {
         path = new NavMeshPath();
@@ -57,7 +60,7 @@ public class GunnerZombieControl : MonoBehaviour
 
         Vector3 dist = Player.position - transform.position;
         dist.y = 0;
-        if (!isAttacking && dist.magnitude < 10)
+        if (!isAttacking && dist.magnitude < 10 && spike == null)
         {
             coolTimer += Time.deltaTime;
             if (coolTimer >= coolLength)
@@ -178,6 +181,39 @@ public class GunnerZombieControl : MonoBehaviour
             {
                 finishAttack = true;
             }
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "SpikeHurt")
+        {
+            agent.speed /= 1.5f;
+            spike = other.transform.parent.GetComponent<ObjectUpdate>();
+        }
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "SpikeHurt")
+        {
+            spikeTimer += Time.deltaTime;
+            if (spikeTimer >= 0.3f)
+            {
+                enemyHealth.GetDamage(5, false, false);
+                if (spike)
+                    spike.Damage(1);
+                spikeTimer = 0.0f;
+            }
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "SpikeHurt")
+        {
+            agent.speed *= 1.5f;
+            spike = null;
         }
     }
 }

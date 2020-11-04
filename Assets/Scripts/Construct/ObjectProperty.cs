@@ -12,10 +12,12 @@ public class ObjectProperty : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if(collision.collider.gameObject.tag != "Terrain" && 
+        if (collision.collider.gameObject.tag != "Terrain" &&
            collision.collider.gameObject.tag != "AdjacentWall" &&
            collision.collider.gameObject.tag != "SideWall")
+        {
             collided = true;
+        }
     }
 
     void OnCollisionExit()

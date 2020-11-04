@@ -7,6 +7,7 @@ public class fpsControl : MonoBehaviour
     public GameObject realRadar, fpsRadar;
     public GameObject environmentEffect;
     public bool usingFpsRadar, muted;
+    public LightningScript lightningManager;
 
     void Start()
     {
@@ -48,5 +49,7 @@ public class fpsControl : MonoBehaviour
     public void setEnvironmentEffect(bool val)
     {
         environmentEffect.SetActive(val);
+        if (val)
+            lightningManager.Reset();
     }
 }

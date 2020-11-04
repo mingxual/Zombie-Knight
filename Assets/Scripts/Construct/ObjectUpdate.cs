@@ -9,6 +9,8 @@ public class ObjectUpdate : MonoBehaviour
     public int blood;
     private float life;
 
+    public bool needRebakeScene, isTransparent;
+
     void Start()
     {
         life = blood;
@@ -18,14 +20,16 @@ public class ObjectUpdate : MonoBehaviour
     public bool Damage(int damage)
     {
         blood -= damage;
-        Mathf.Clamp(blood, 0, life);
-        Color color = transform.GetComponent<MeshRenderer>().material.color;
-        color.a = Mathf.Lerp(0.0f, 1.0f, (float)blood/life);
-        transform.GetComponent<MeshRenderer>().material.color = color;
+        if (isTransparent)
+        {
+            Mathf.Clamp(blood, 0, life);
+            Color color = transform.GetComponent<MeshRenderer>().material.color;
+            color.a = Mathf.Lerp(0.0f, 1.0f, (float)blood / life);
+            transform.GetComponent<MeshRenderer>().material.color = color;
+        }
         if (blood <= 0)
         {
-            transform.gameObject.SetActive(false);
-            surface.BuildNavMesh();
+            Destroy();
             return false;
         }
         return true;
@@ -34,6 +38,9 @@ public class ObjectUpdate : MonoBehaviour
     public void Destroy()
     {
         transform.gameObject.SetActive(false);
-        surface.BuildNavMesh();
+        if (needRebakeScene)
+        {
+            surface.BuildNavMesh();
+        }
     }
 }

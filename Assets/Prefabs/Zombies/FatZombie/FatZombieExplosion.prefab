@@ -5053,6 +5053,7 @@ MonoBehaviour:
   despawnTime: 15
   lightDuration: 0.0325
   lightFlash: {fileID: 467563381017379016}
+  collider: {fileID: 5355707840316019760}
   explosionSounds:
   - {fileID: 8300000, guid: dd0264e11df5d694fbe924abc3e80301, type: 3}
   - {fileID: 8300000, guid: ca80aad89fdc47a4b91e62a663ebd1f0, type: 3}

@@ -19,7 +19,7 @@ public class PrefabGenerator : MonoBehaviour
     public float startY;
 
     public Vector2 objMoveSpeedLimit;
-    private float objMoveSpeed;
+
     public float objTransparency;
     public Material redMaterial, greenMaterial;
     private Material objMaterial;
@@ -33,8 +33,11 @@ public class PrefabGenerator : MonoBehaviour
 
     public TorchManager torchManager;
 
+    public bool isMovingObj;
+
     void Start()
     {
+        isMovingObj = false;
         currObj = null;
         //Cursor.lockState = CursorLockMode.Confined;
         terrainRect = new Rect(terrain.position.x - terrain.localScale.x / 2.0f,
@@ -44,8 +47,6 @@ public class PrefabGenerator : MonoBehaviour
 
     void Update()
     {
-        objMoveSpeed = Mathf.Lerp(objMoveSpeedLimit.x, objMoveSpeedLimit.y,
-            defenseCamera.GetComponent<CameraControl>().getRelativeHeight());
         cameraMoveSpeed = Mathf.Lerp(cameraMoveSpeedLimit.x, cameraMoveSpeedLimit.y,
             defenseCamera.GetComponent<CameraControl>().getRelativeHeight());
 
@@ -58,14 +59,22 @@ public class PrefabGenerator : MonoBehaviour
 
             CreateDelete();
         }
+
+        if (currObj == null || currObj.tag != "Wall")
+        {
+            adjacentWallCheck.position = new Vector3(1000, 1000, 1000);
+        }
     }
 
     void moveObject()
     {
         float y = startY + (objProperty.pivotCenter ? (currObj.localScale.y *
             objProperty.percentToUnitLength) / 2.0f : 0.0f);
+        float xPos = Input.mousePosition.x;
+        if (currObj.tag == "Spike")
+            xPos += 50;
         Vector3 newPos = defenseCamera.ScreenToWorldPoint
-            (new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenToWorldZ()));
+            (new Vector3(xPos, Input.mousePosition.y, screenToWorldZ()));
         newPos.y = y;
         currObj.position = newPos;
         if (currObj.tag == "Wall")
@@ -78,34 +87,28 @@ public class PrefabGenerator : MonoBehaviour
     void checkValid()
     {
         validPos = terrainRect.Contains(new Vector2(currObj.position.x, currObj.position.z)) &&
-                   !objProperty.collided;
+                   !objProperty.collided &&
+                   torchManager.isCloseToTorch(currObj.position);
 
-        validPos = torchManager.isCloseToTorch(currObj.position);
-
-        //Color color = currObj.GetComponent<MeshRenderer>().material.color;
         if (!validPos)
         {
-            /*color.a = objTransparency;
-            currObj.GetComponent<MeshRenderer>().material.color = color;*/
             currObj.GetComponent<MeshRenderer>().material = redMaterial;
         }
         else if (validPos)
         {
-            /*color.a = 1.0f;
-            currObj.GetComponent<MeshRenderer>().material.color = color;*/
             currObj.GetComponent<MeshRenderer>().material = greenMaterial;
         }
     }
 
     void CreateDelete()
     {
-        if (Input.GetMouseButton(0) && validPos == true)
+        if (Input.GetMouseButtonDown(0) && validPos == true)
         {
             defenseCameraControl.setOrbitpivot(currObj.position); // make camera rotate with curr obj
             currObj.GetComponent<MeshRenderer>().material = objMaterial;
             finishObj();
         }
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButtonDown(1))
         {
             MoneyManager.instance.gainMoney(currObj.GetComponent<ObjectProperty>().cost);
             Destroy(currObj.gameObject);
@@ -116,9 +119,16 @@ public class PrefabGenerator : MonoBehaviour
 
     void finishObj()
     {
+        StartCoroutine("setMovingObj");
         currObj = null;
         Cursor.visible = true;
         objectMenu.gameObject.SetActive(true);
+    }
+
+    private IEnumerator setMovingObj()
+    {
+        yield return new WaitForSeconds(0.1f);
+        isMovingObj = false;
     }
 
     void outBoundryMove()
@@ -151,7 +161,10 @@ public class PrefabGenerator : MonoBehaviour
     private void objectInit()
     {
         Cursor.visible = false;
-        currObj = Instantiate(currObj, Vector3.zero, Quaternion.identity);
+        Vector3 angle = Vector3.zero;
+        if (currObj.tag == "Spike")
+            angle = new Vector3(0, 180, -180);
+        currObj = Instantiate(currObj, Vector3.zero, Quaternion.Euler(angle));
         currObj.SetParent(objectParent);
         objProperty = currObj.GetComponent<ObjectProperty>();
         float y = startY + (objProperty.pivotCenter ? (currObj.localScale.y * 
@@ -162,6 +175,7 @@ public class PrefabGenerator : MonoBehaviour
         currObj.position = pos;
         objectMenu.gameObject.SetActive(false);
         objMaterial = currObj.GetComponent<MeshRenderer>().material;
+        isMovingObj = true;
     }
 
     float screenToWorldZ()

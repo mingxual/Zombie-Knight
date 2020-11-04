@@ -11,6 +11,8 @@ public class ExplosionAttack : MonoBehaviour
 	public float lightDuration = 0.02f;
 	[Header("Light")]
 	public Light lightFlash;
+	[Header("Collider")]
+	public Collider collider;
 
 	[Header("Audio")]
 	public AudioClip[] explosionSounds;
@@ -37,6 +39,7 @@ public class ExplosionAttack : MonoBehaviour
 		yield return new WaitForSeconds(lightDuration);
 		//Hide the light
 		lightFlash.GetComponent<Light>().enabled = false;
+		collider.enabled = false;
 	}
 
 	private IEnumerator DestroyTimer()
@@ -52,7 +55,7 @@ public class ExplosionAttack : MonoBehaviour
 		{
 			other.GetComponent<PlayerHealth>().getHarm(50, false);
 		}
-		else if (other.tag == "Wall" || other.tag == "SideWall")
+		else if (other.tag == "Wall" || other.tag == "SideWall" || other.tag == "Spike")
 		{
 			other.gameObject.GetComponent<ObjectUpdate>().Destroy();
 		}

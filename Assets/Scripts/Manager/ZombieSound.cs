@@ -18,6 +18,11 @@ public class ZombieSound : MonoBehaviour
 
     void Start()
     {
+        Reset();
+    }
+
+    public void Reset()
+    {
         isWaiting = true;
         StartCoroutine(afterTenSeconds());
     }

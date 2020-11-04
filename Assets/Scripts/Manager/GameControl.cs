@@ -19,7 +19,7 @@ public class GameControl : MonoBehaviour
 
     public GameObject bag;
 
-    public GameObject forgetBuyWeapon;
+    public AlertMessage AlertMenu;
 
     private int currZombieNum;
     private int currLevel = 0;
@@ -33,7 +33,16 @@ public class GameControl : MonoBehaviour
     public GameObject constructionPauseMenu, fpsPauseMenu;
     public fpsControl fps_control;
 
+    public MoneyManager moneyManager;
+
     public Text zombieNumberText;
+
+    public GameObject endGameMenu, gameFail, gameWin;
+
+    public LightningScript lightningManager;
+    public ZombieSound zombieSound;
+
+    public GameObject recoverButton;
 
     public GameObject[] mLevels;
 
@@ -53,6 +62,9 @@ public class GameControl : MonoBehaviour
         Physics.IgnoreLayerCollision(16, 11);
         Physics.IgnoreLayerCollision(16, 18);
         Physics.IgnoreLayerCollision(11, 18);
+        Physics.IgnoreLayerCollision(8, 19);
+        Physics.IgnoreLayerCollision(9, 19);
+        Physics.IgnoreLayerCollision(18, 19);
     }
 
 
@@ -73,17 +85,9 @@ public class GameControl : MonoBehaviour
             }
             else
             {
-                /*Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
-                Time.timeScale = 0;
-                AudioListener.volume = 0;
-                fpsPauseMenu.SetActive(true);*/
+                Pause(true);
+                fpsPauseMenu.SetActive(true);
             }
-        }
-
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            print(fps_control.muted);
         }
 
         if (Input.GetKeyDown(KeyCode.B))
@@ -105,13 +109,15 @@ public class GameControl : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
 
         player.GetComponent<SpeedUp>().turnOffSpeedUp();
+
+        recoverButton.SetActive(true);
     }
 
     public void switchToFPS()
     {
         if (BagManager.instance.bagContent.Count == 0)
         {
-            forgetBuyWeapon.SetActive(true);
+            AlertMenu.alertMessage("You forgot to purchase weapons");
             return;
         }
 
@@ -121,6 +127,9 @@ public class GameControl : MonoBehaviour
         FPS.SetActive(true);
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+        lightningManager.Reset();
+        zombieSound.Reset();
 
         if (currLevel < mLevels.Length - 1)
         {
@@ -140,10 +149,11 @@ public class GameControl : MonoBehaviour
         zombieNumberText.text = "Zombie Left: " + currZombieNum.ToString();
     }
 
-    public void killOneZombie()
+    public void killOneZombie(int val)
     {
         currZombieNum--;
         zombieNumberText.text = "Zombie Left: " + currZombieNum.ToString();
+        moneyManager.gainMoney(val);
         if (currZombieNum <= 0)
         {
             StartCoroutine("FinishCurrentLevel");
@@ -167,12 +177,33 @@ public class GameControl : MonoBehaviour
 
     public void failGame()
     {
+        StartCoroutine(fail());
+    }
 
+    private IEnumerator fail()
+    {
+        yield return new WaitForSeconds(FinishFPSTime);
+        FPS.SetActive(false);
+        endGameMenu.SetActive(true);
+        StartCoroutine(WaitOneSecond(false));
     }
 
     public void winGame()
     {
+        FPS.SetActive(false);
+        endGameMenu.SetActive(true);
+        StartCoroutine(WaitOneSecond(true));
+    }
 
+    private IEnumerator WaitOneSecond(bool win)
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        yield return new WaitForSeconds(1);
+        if (win)
+            gameWin.SetActive(true);
+        else
+            gameFail.SetActive(true);
     }
 
     public void ReloadGame()
@@ -194,11 +225,16 @@ public class GameControl : MonoBehaviour
     {
         if (pause)
         {
-            Time.timeScale = 0.0f;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            Time.timeScale = 0;
+            AudioListener.volume = 0;
         }
         else 
         {
-            Time.timeScale = 1.0f;
+            Time.timeScale = 1;
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
     }
 
@@ -208,9 +244,7 @@ public class GameControl : MonoBehaviour
         {
             AudioListener.volume = 1;
         }
-        Time.timeScale = 1;
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        Pause(false);
         fpsPauseMenu.SetActive(false);
     }
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Drag : MonoBehaviour
 {
+    public bool aroundAngle = true;
+
     private Vector3 lastPos, currPos;
     private bool leftMousePressed;
 
@@ -35,8 +37,15 @@ public class Drag : MonoBehaviour
 
             float angle = transform.rotation.eulerAngles.y;
             angle += offset.x * rotateSpeed;
-            transform.RotateAround(orbitPoint, new Vector3(0.0f, 1.0f, 0.0f), offset.x * rotateSpeed);
-            //transform.Rotate(new Vector3(0.0f, 1.0f, 0.0f), offset.x * rotateSpeed);
+            if (aroundAngle)
+            {
+                transform.RotateAround(orbitPoint,
+                    new Vector3(0.0f, 1.0f, 0.0f), offset.x * rotateSpeed);
+            }
+            else
+            {
+                transform.Rotate(new Vector3(0.0f, 1.0f, 0.0f), offset.x * rotateSpeed);
+            }
             lastPos = currPos;
         }
         else if (!Input.GetMouseButton(0) && leftMousePressed)

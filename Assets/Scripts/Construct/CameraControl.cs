@@ -7,6 +7,8 @@ public class CameraControl : MonoBehaviour
 {
     private Vector3 lastPos, currPos;
 
+    public PrefabGenerator generator;
+
     public float moveSpeed, scrollSpeed, rotateSpeed;
     public float minHeight, maxHeight;
     public float minAngle, maxAngle;
@@ -61,24 +63,8 @@ public class CameraControl : MonoBehaviour
         {
             if (utility.belongToObj(hit.collider.gameObject.tag))
             {
-                if (currHover != null)
-                {
-                    Color c = currHover.GetComponent<MeshRenderer>().material.color;
-                    c.a = 1.0f;
-                    currHover.GetComponent<MeshRenderer>().material.color = c;
-                }
                 currHover = hit.collider.gameObject;
-                Color color = currHover.GetComponent<MeshRenderer>().material.color;
-                color.a = 0.3f;
-                currHover.GetComponent<MeshRenderer>().material.color = color;
                 return true;
-            }
-            else if(currHover != null)
-            {
-                Color color = currHover.GetComponent<MeshRenderer>().material.color;
-                color.a = 1.0f;
-                currHover.GetComponent<MeshRenderer>().material.color = color;
-                return false;
             }
         }
         return false;
@@ -86,7 +72,7 @@ public class CameraControl : MonoBehaviour
 
     void deleteObject()
     {
-        if (Input.GetMouseButtonDown(0) && currHover != null)
+        if (Input.GetMouseButtonDown(0) && currHover != null && !generator.isMovingObj)
         {
             if(currHover.GetComponent<ObjectProperty>() != null)
             {

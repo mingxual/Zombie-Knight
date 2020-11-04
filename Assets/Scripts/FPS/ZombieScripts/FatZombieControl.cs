@@ -11,6 +11,7 @@ public class FatZombieControl : MonoBehaviour
     public Animator animator;
 
     public PlayerHealth playerHealth;
+    public FatZombieHealth enemyHealth;
 
     private ObjectUpdate objUpdate;
 
@@ -27,6 +28,9 @@ public class FatZombieControl : MonoBehaviour
     private bool exploded;
 
     public float range;
+
+    private float spikeTimer;
+    private ObjectUpdate spike;
 
     void Start()
     {
@@ -47,13 +51,17 @@ public class FatZombieControl : MonoBehaviour
         if (dist.magnitude <= range)
         {
             exploded = true;
-            GetComponent<FatZombieHealth>().explode();
+            enemyHealth.explode();
+            return;
         }
 
-        agent.SetDestination(Player.position);
-        path = new NavMeshPath();
-        agent.CalculatePath(agent.destination, path);
-        agent.SetPath(path);
+        if (agent && agent.enabled)
+        {
+            agent.SetDestination(Player.position);
+            path = new NavMeshPath();
+            agent.CalculatePath(agent.destination, path);
+            agent.SetPath(path);
+        }
 
         if (finishAttack)
         {
@@ -120,6 +128,42 @@ public class FatZombieControl : MonoBehaviour
                 animator.SetBool("attack", false);
                 isAttacking = false;
             }
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (exploded) return;
+        if (other.tag == "SpikeHurt")
+        {
+            agent.speed /= 1.5f;
+            spike = other.transform.parent.GetComponent<ObjectUpdate>();
+        }
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+        if (exploded) return;
+        if (other.tag == "SpikeHurt")
+        {
+            spikeTimer += Time.deltaTime;
+            if (spikeTimer >= 0.3f)
+            {
+                enemyHealth.GetDamage(5, false, false);
+                if (spike)
+                    spike.Damage(1);
+                spikeTimer = 0.0f;
+            }
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (exploded) return;
+        if (other.tag == "SpikeHurt")
+        {
+            agent.speed *= 1.5f;
+            spike = null;
         }
     }
 }

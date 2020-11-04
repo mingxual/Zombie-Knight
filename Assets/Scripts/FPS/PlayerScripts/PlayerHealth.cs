@@ -32,6 +32,15 @@ public class PlayerHealth : MonoBehaviour
         currHealth = totalHealth;        
     }
 
+    public void Recover()
+    {
+        currHealth += 50;
+        if (currHealth >= totalHealth)
+            currHealth = totalHealth;
+        healthPanel.text = "HP: " + currHealth.ToString();
+        health.fillAmount = (float)currHealth / (float)totalHealth;
+    }
+
     public void getHarm(int points, bool scratch)
     {
         currHealth -= points;
@@ -40,8 +49,11 @@ public class PlayerHealth : MonoBehaviour
         health.fillAmount = (float)currHealth / (float)totalHealth;
         healthPanel.text = "HP: " + currHealth.ToString();
 
-        Instantiate(scratchEffects[Random.Range(0, scratchEffects.Length)], 
+        if (scratch)
+        {
+            Instantiate(scratchEffects[Random.Range(0, scratchEffects.Length)],
             Vector3.zero, Quaternion.identity);
+        }
 
         if (currHealth <= 0)
         {

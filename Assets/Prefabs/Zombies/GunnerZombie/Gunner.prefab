@@ -865,7 +865,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 8728807112450906778}
   animator: {fileID: 8215521642479955392}
-  totalHealth: 1000
+  totalHealth: 2000
+  value: 300
   dead: 0
   blip: {fileID: 5670018026559775350}
   head: {fileID: 4110170507116266948}

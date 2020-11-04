@@ -18,6 +18,8 @@ public class BagManager : MonoBehaviour
 
     public int last_cellIndex = 0;
 
+    public AlertMessage AlertMenu;
+
     private void Awake()
     {
         if (instance == null)
@@ -48,7 +50,7 @@ public class BagManager : MonoBehaviour
         bool result = MoneyManager.instance.deductMoney(weaponCost[itemIndex]);
         if (!result)
         {
-            Debug.Log("You do not have enough money");
+            AlertMenu.alertMessage("You do not have enough money");
             return;
         }
 

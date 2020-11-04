@@ -76,6 +76,13 @@ public class LightningScript : MonoBehaviour {
 		gunCamera.backgroundColor = mainBackgroundColor;
 	}
 
+	public void Reset()
+	{
+		isWaiting = false;
+		lightObject.enabled = false;
+		gunCamera.backgroundColor = mainBackgroundColor;
+	}
+
 	private void Update () {
 		//Random value for how long the waiting should be
 		delay = (Random.Range (minDelay, maxDelay));

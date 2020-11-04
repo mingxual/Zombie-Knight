@@ -10,6 +10,7 @@ public class FatZombieHealth : EnemyHealth
 
     public void explode()
     {
+        gameControl.killOneZombie(value);
         StartCoroutine("WaitForDeadAnimationFinish");
     }
 
@@ -20,7 +21,10 @@ public class FatZombieHealth : EnemyHealth
         audio.Play();
         dead = true;
         GetComponent<Rigidbody>().isKinematic = true;
-        agent.enabled = false;
+        if (agent)
+        {
+            agent.enabled = false;
+        }
         blip.SetActive(false);
 
         yield return new WaitForSeconds

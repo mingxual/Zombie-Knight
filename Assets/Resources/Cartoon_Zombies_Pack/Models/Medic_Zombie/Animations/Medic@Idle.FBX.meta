@@ -1,120 +1,332 @@
 fileFormatVersion: 2
 guid: 59b3fa2c903d35b448091a7861e4372e
-timeCreated: 1569683054
-licenseType: Store
 ModelImporter:
-  serializedVersion: 22
-  fileIDToRecycleName:
-    100000: CATRigHub001
-    100002: CATRigHub002
-    100004: CATRigHub002Bone001
-    100006: CATRigHub002Bone001Bone001
-    100008: CATRigLArm1
-    100010: CATRigLArm2
-    100012: CATRigLArmCollarbone
-    100014: CATRigLArmDigit11
-    100016: CATRigLArmDigit12
-    100018: CATRigLArmDigit13
-    100020: CATRigLArmDigit21
-    100022: CATRigLArmDigit22
-    100024: CATRigLArmDigit23
-    100026: CATRigLArmDigit31
-    100028: CATRigLArmDigit32
-    100030: CATRigLArmDigit33
-    100032: CATRigLArmDigit41
-    100034: CATRigLArmDigit42
-    100036: CATRigLArmDigit43
-    100038: CATRigLArmPalm
-    100040: CATRigLLeg1
-    100042: CATRigLLeg2
-    100044: CATRigLLegAnkle
-    100046: CATRigLLegDigit11
-    100048: CATRigLLegPlatform
-    100050: CATRigRArm1
-    100052: CATRigRArm2
-    100054: CATRigRArmCollarbone
-    100056: CATRigRArmDigit11
-    100058: CATRigRArmDigit12
-    100060: CATRigRArmDigit13
-    100062: CATRigRArmDigit21
-    100064: CATRigRArmDigit22
-    100066: CATRigRArmDigit23
-    100068: CATRigRArmDigit31
-    100070: CATRigRArmDigit32
-    100072: CATRigRArmDigit33
-    100074: CATRigRArmDigit41
-    100076: CATRigRArmDigit42
-    100078: CATRigRArmDigit43
-    100080: CATRigRArmPalm
-    100082: CATRigRLeg1
-    100084: CATRigRLeg2
-    100086: CATRigRLegAnkle
-    100088: CATRigRLegDigit11
-    100090: CATRigRLegPlatform
-    100092: CATRigSpine1
-    100094: CATRigSpine2
-    100096: Character001
-    100098: //RootNode
-    100100: Medic_Mesh
-    400000: CATRigHub001
-    400002: CATRigHub002
-    400004: CATRigHub002Bone001
-    400006: CATRigHub002Bone001Bone001
-    400008: CATRigLArm1
-    400010: CATRigLArm2
-    400012: CATRigLArmCollarbone
-    400014: CATRigLArmDigit11
-    400016: CATRigLArmDigit12
-    400018: CATRigLArmDigit13
-    400020: CATRigLArmDigit21
-    400022: CATRigLArmDigit22
-    400024: CATRigLArmDigit23
-    400026: CATRigLArmDigit31
-    400028: CATRigLArmDigit32
-    400030: CATRigLArmDigit33
-    400032: CATRigLArmDigit41
-    400034: CATRigLArmDigit42
-    400036: CATRigLArmDigit43
-    400038: CATRigLArmPalm
-    400040: CATRigLLeg1
-    400042: CATRigLLeg2
-    400044: CATRigLLegAnkle
-    400046: CATRigLLegDigit11
-    400048: CATRigLLegPlatform
-    400050: CATRigRArm1
-    400052: CATRigRArm2
-    400054: CATRigRArmCollarbone
-    400056: CATRigRArmDigit11
-    400058: CATRigRArmDigit12
-    400060: CATRigRArmDigit13
-    400062: CATRigRArmDigit21
-    400064: CATRigRArmDigit22
-    400066: CATRigRArmDigit23
-    400068: CATRigRArmDigit31
-    400070: CATRigRArmDigit32
-    400072: CATRigRArmDigit33
-    400074: CATRigRArmDigit41
-    400076: CATRigRArmDigit42
-    400078: CATRigRArmDigit43
-    400080: CATRigRArmPalm
-    400082: CATRigRLeg1
-    400084: CATRigRLeg2
-    400086: CATRigRLegAnkle
-    400088: CATRigRLegDigit11
-    400090: CATRigRLegPlatform
-    400092: CATRigSpine1
-    400094: CATRigSpine2
-    400096: Character001
-    400098: //RootNode
-    400100: Medic_Mesh
-    2100000: _Dead_medic09___Default
-    4300000: Medic_Mesh
-    7400000: Take 001
-    9500000: //RootNode
-    13700000: Medic_Mesh
+  serializedVersion: 20101
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: CATRigHub001
+  - first:
+      1: 100002
+    second: CATRigHub002
+  - first:
+      1: 100004
+    second: CATRigHub002Bone001
+  - first:
+      1: 100006
+    second: CATRigHub002Bone001Bone001
+  - first:
+      1: 100008
+    second: CATRigLArm1
+  - first:
+      1: 100010
+    second: CATRigLArm2
+  - first:
+      1: 100012
+    second: CATRigLArmCollarbone
+  - first:
+      1: 100014
+    second: CATRigLArmDigit11
+  - first:
+      1: 100016
+    second: CATRigLArmDigit12
+  - first:
+      1: 100018
+    second: CATRigLArmDigit13
+  - first:
+      1: 100020
+    second: CATRigLArmDigit21
+  - first:
+      1: 100022
+    second: CATRigLArmDigit22
+  - first:
+      1: 100024
+    second: CATRigLArmDigit23
+  - first:
+      1: 100026
+    second: CATRigLArmDigit31
+  - first:
+      1: 100028
+    second: CATRigLArmDigit32
+  - first:
+      1: 100030
+    second: CATRigLArmDigit33
+  - first:
+      1: 100032
+    second: CATRigLArmDigit41
+  - first:
+      1: 100034
+    second: CATRigLArmDigit42
+  - first:
+      1: 100036
+    second: CATRigLArmDigit43
+  - first:
+      1: 100038
+    second: CATRigLArmPalm
+  - first:
+      1: 100040
+    second: CATRigLLeg1
+  - first:
+      1: 100042
+    second: CATRigLLeg2
+  - first:
+      1: 100044
+    second: CATRigLLegAnkle
+  - first:
+      1: 100046
+    second: CATRigLLegDigit11
+  - first:
+      1: 100048
+    second: CATRigLLegPlatform
+  - first:
+      1: 100050
+    second: CATRigRArm1
+  - first:
+      1: 100052
+    second: CATRigRArm2
+  - first:
+      1: 100054
+    second: CATRigRArmCollarbone
+  - first:
+      1: 100056
+    second: CATRigRArmDigit11
+  - first:
+      1: 100058
+    second: CATRigRArmDigit12
+  - first:
+      1: 100060
+    second: CATRigRArmDigit13
+  - first:
+      1: 100062
+    second: CATRigRArmDigit21
+  - first:
+      1: 100064
+    second: CATRigRArmDigit22
+  - first:
+      1: 100066
+    second: CATRigRArmDigit23
+  - first:
+      1: 100068
+    second: CATRigRArmDigit31
+  - first:
+      1: 100070
+    second: CATRigRArmDigit32
+  - first:
+      1: 100072
+    second: CATRigRArmDigit33
+  - first:
+      1: 100074
+    second: CATRigRArmDigit41
+  - first:
+      1: 100076
+    second: CATRigRArmDigit42
+  - first:
+      1: 100078
+    second: CATRigRArmDigit43
+  - first:
+      1: 100080
+    second: CATRigRArmPalm
+  - first:
+      1: 100082
+    second: CATRigRLeg1
+  - first:
+      1: 100084
+    second: CATRigRLeg2
+  - first:
+      1: 100086
+    second: CATRigRLegAnkle
+  - first:
+      1: 100088
+    second: CATRigRLegDigit11
+  - first:
+      1: 100090
+    second: CATRigRLegPlatform
+  - first:
+      1: 100092
+    second: CATRigSpine1
+  - first:
+      1: 100094
+    second: CATRigSpine2
+  - first:
+      1: 100096
+    second: Character001
+  - first:
+      1: 100098
+    second: //RootNode
+  - first:
+      1: 100100
+    second: Medic_Mesh
+  - first:
+      4: 400000
+    second: CATRigHub001
+  - first:
+      4: 400002
+    second: CATRigHub002
+  - first:
+      4: 400004
+    second: CATRigHub002Bone001
+  - first:
+      4: 400006
+    second: CATRigHub002Bone001Bone001
+  - first:
+      4: 400008
+    second: CATRigLArm1
+  - first:
+      4: 400010
+    second: CATRigLArm2
+  - first:
+      4: 400012
+    second: CATRigLArmCollarbone
+  - first:
+      4: 400014
+    second: CATRigLArmDigit11
+  - first:
+      4: 400016
+    second: CATRigLArmDigit12
+  - first:
+      4: 400018
+    second: CATRigLArmDigit13
+  - first:
+      4: 400020
+    second: CATRigLArmDigit21
+  - first:
+      4: 400022
+    second: CATRigLArmDigit22
+  - first:
+      4: 400024
+    second: CATRigLArmDigit23
+  - first:
+      4: 400026
+    second: CATRigLArmDigit31
+  - first:
+      4: 400028
+    second: CATRigLArmDigit32
+  - first:
+      4: 400030
+    second: CATRigLArmDigit33
+  - first:
+      4: 400032
+    second: CATRigLArmDigit41
+  - first:
+      4: 400034
+    second: CATRigLArmDigit42
+  - first:
+      4: 400036
+    second: CATRigLArmDigit43
+  - first:
+      4: 400038
+    second: CATRigLArmPalm
+  - first:
+      4: 400040
+    second: CATRigLLeg1
+  - first:
+      4: 400042
+    second: CATRigLLeg2
+  - first:
+      4: 400044
+    second: CATRigLLegAnkle
+  - first:
+      4: 400046
+    second: CATRigLLegDigit11
+  - first:
+      4: 400048
+    second: CATRigLLegPlatform
+  - first:
+      4: 400050
+    second: CATRigRArm1
+  - first:
+      4: 400052
+    second: CATRigRArm2
+  - first:
+      4: 400054
+    second: CATRigRArmCollarbone
+  - first:
+      4: 400056
+    second: CATRigRArmDigit11
+  - first:
+      4: 400058
+    second: CATRigRArmDigit12
+  - first:
+      4: 400060
+    second: CATRigRArmDigit13
+  - first:
+      4: 400062
+    second: CATRigRArmDigit21
+  - first:
+      4: 400064
+    second: CATRigRArmDigit22
+  - first:
+      4: 400066
+    second: CATRigRArmDigit23
+  - first:
+      4: 400068
+    second: CATRigRArmDigit31
+  - first:
+      4: 400070
+    second: CATRigRArmDigit32
+  - first:
+      4: 400072
+    second: CATRigRArmDigit33
+  - first:
+      4: 400074
+    second: CATRigRArmDigit41
+  - first:
+      4: 400076
+    second: CATRigRArmDigit42
+  - first:
+      4: 400078
+    second: CATRigRArmDigit43
+  - first:
+      4: 400080
+    second: CATRigRArmPalm
+  - first:
+      4: 400082
+    second: CATRigRLeg1
+  - first:
+      4: 400084
+    second: CATRigRLeg2
+  - first:
+      4: 400086
+    second: CATRigRLegAnkle
+  - first:
+      4: 400088
+    second: CATRigRLegDigit11
+  - first:
+      4: 400090
+    second: CATRigRLegPlatform
+  - first:
+      4: 400092
+    second: CATRigSpine1
+  - first:
+      4: 400094
+    second: CATRigSpine2
+  - first:
+      4: 400096
+    second: Character001
+  - first:
+      4: 400098
+    second: //RootNode
+  - first:
+      4: 400100
+    second: Medic_Mesh
+  - first:
+      21: 2100000
+    second: _Dead_medic09___Default
+  - first:
+      43: 4300000
+    second: Medic_Mesh
+  - first:
+      74: 7400000
+    second: Idle
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: Medic_Mesh
   externalObjects: {}
   materials:
-    importMaterials: 1
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -131,6 +343,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -138,28 +351,67 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Idle
+      takeName: Take 001
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    fileIdsGeneration: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    bakeAxisConversion: 0
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
   tangentSpace:
@@ -167,10 +419,13 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 3
     normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
-  copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -180,14 +435,16 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
+  avatarSetup: 1
   additionalBone: 0
   userData: 
   assetBundleName: 
