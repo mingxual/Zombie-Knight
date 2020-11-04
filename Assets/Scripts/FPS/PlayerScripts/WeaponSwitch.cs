@@ -81,6 +81,8 @@ public class WeaponSwitch : MonoBehaviour
     // Get the bag list from BagManager.cs
     public void getWeaponList()
     {
+        weaponMagazines.Clear();
+
         List<int> num_bullets = BagManager.instance.num_bullets;
         for (int i = 0; i < num_bullets.Count - 1; ++i)
         {
