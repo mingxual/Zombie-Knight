@@ -15,7 +15,6 @@ public class MonsterZombieControl : MonoBehaviour
     public Transform Player;
     public Utility utility;
 
-    private float attackTime = 0.0f, attackLength;
     public int damageObjPoint, damagePlayerPoint;
 
     private bool isAttacking;
@@ -36,12 +35,12 @@ public class MonsterZombieControl : MonoBehaviour
 
     public AudioSource audio;
 
+    public float canAttackRadius;
+
     void Start()
     {
         isAttacking = false;
         hit = false;
-        attackTime = 0.0f;
-        attackLength = 1.3f;
         currFrame = 0;
     }
 
@@ -49,16 +48,6 @@ public class MonsterZombieControl : MonoBehaviour
     {
         if (enemyHealth.dead)
             return;
-
-        if (isAttacking)
-        {
-            attackTime += Time.deltaTime;
-            if (attackTime >= attackLength)
-            {
-                attackTime = 0.0f;
-                playerHealth.getHarm(damagePlayerPoint, true);
-            }
-        }
 
         Vector3 dir = (Player.position - transform.position).normalized;
         dir.y = 0;
@@ -114,7 +103,15 @@ public class MonsterZombieControl : MonoBehaviour
             }
         }
     }
-    
+
+    public void Attack()
+    {
+        float dist = Vector3.Distance(transform.position, Player.position);
+        if (dist >= canAttackRadius)
+            return;
+        playerHealth.getHarm(damagePlayerPoint, true);
+    }
+
     void OnCollisionEnter(Collision collision)
     {
         if (isJumping && collision.contacts[0].normal == new Vector3(0, 1, 0))

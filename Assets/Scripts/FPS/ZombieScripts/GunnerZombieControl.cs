@@ -19,7 +19,7 @@ public class GunnerZombieControl : MonoBehaviour
     private float attackTime = 0.0f, attackLength;
     public int damageObjPoint, damagePlayerPoint;
 
-    private bool isAttacking, attackPlayer, finishAttack, finishHit;
+    private bool isAttacking, attackPlayer, finishAttack;
 
     private Vector3 pos;
 
@@ -27,17 +27,21 @@ public class GunnerZombieControl : MonoBehaviour
     private float coolLength, coolTimer;
     private bool hasFired, finishFire;
 
-    private ObjectUpdate obj;
+    private ObjectUpdate objUpdate;
 
     private float spikeTimer;
     private ObjectUpdate spike;
+
+    public ParticleSystem flameParticle1, flameParticle2;
+    public AudioSource flameSound;
+
+    public float canAttackRadius;
 
     void Start()
     {
         path = new NavMeshPath();
         isAttacking = false;
         finishAttack = false;
-        finishHit = false;
         finishFire = false;
         attackTime = 0.0f;
         attackLength = 1.3f;
@@ -66,7 +70,10 @@ public class GunnerZombieControl : MonoBehaviour
             if (coolTimer >= coolLength)
             {
                 coolTimer = 0.0f;
-                Fire();
+                hasFired = true;
+                animator.Play("Fire", 0);        
+                agent.updatePosition = false;
+                pos = transform.position;
             }
         }
 
@@ -88,51 +95,48 @@ public class GunnerZombieControl : MonoBehaviour
 
         if (isAttacking)
         {
-            agent.CalculatePath(Player.position, path);
             if (!attackPlayer && path.status == NavMeshPathStatus.PathComplete)
             {
-                finishAttack = true;
+                agent.CalculatePath(Player.position, path);
+                if (path.status == NavMeshPathStatus.PathComplete)
+                {
+                    finishAttack = true;
+                    animator.SetBool("attack", false);
+                    isAttacking = false;
+                }
+            }
+        }
+    }
+
+    public void Attack()
+    {
+        if (attackPlayer)
+        {
+            float dist = Vector3.Distance(transform.position, Player.position);
+            if (dist >= canAttackRadius)
+                return;
+            playerHealth.getHarm(damagePlayerPoint, true);
+        }
+        else
+        {
+            if (objUpdate && !objUpdate.Damage(damageObjPoint))
+            {
                 animator.SetBool("attack", false);
                 isAttacking = false;
-            }
-            else
-            {
-                attackTime += Time.deltaTime;
-                if (attackTime >= attackLength / 2 && !finishHit)
-                {
-                    finishHit = true;
-                    if (attackPlayer)
-                    {
-                        playerHealth.getHarm(damagePlayerPoint, true);
-                    }
-                    else
-                    {
-                        if (obj)
-                        {
-                            obj.Destroy();
-                            finishAttack = true;
-                        }
-                    }
-                }
-                if (attackTime >= attackLength)
-                {
-                    attackTime = 0.0f;
-                    finishHit = false;
-                }
+                finishAttack = true;
             }
         }
     }
 
     void Fire()
     {
-        hasFired = true;
-        animator.Play("Fire", 0);
         Transform bomb = Instantiate(gunnerBomb, Player.position, Quaternion.Euler(-90, 0, 0));
+        bomb.SetParent(transform);
         bomb.GetComponent<GunnerBombControl>().gunner = this;
         bomb.GetComponent<GunnerBombControl>().player = Player;
-        agent.updatePosition = false;
-
-        pos = transform.position;
+        flameParticle1.Play();
+        flameParticle2.Play();
+        flameSound.Play();
     }
 
     public void stopFire()
@@ -160,7 +164,7 @@ public class GunnerZombieControl : MonoBehaviour
                 isAttacking = true;
                 attackPlayer = false;
                 pos = transform.position;
-                obj = collision.collider.gameObject.GetComponent<ObjectUpdate>();
+                objUpdate = collision.collider.gameObject.GetComponent<ObjectUpdate>();
             }
         }
         if (collision.collider.gameObject.tag == "Player")

@@ -18,7 +18,6 @@ public class SoldierZombieControl : MonoBehaviour
     public Transform Player;
     public Utility utility;
 
-    private float attackTime = 0.0f, attackLength;
     public int damageObjPoint, damagePlayerPoint;
 
     private bool isAttacking, attackPlayer, finishAttack;
@@ -28,14 +27,13 @@ public class SoldierZombieControl : MonoBehaviour
     private float spikeTimer;
     private ObjectUpdate spike;
 
+    public float canAttackRadius;
+
     void Start()
     {
         path = new NavMeshPath();
         isAttacking = false;
         finishAttack = false;
-        attackTime = 0.0f;
-        spikeTimer = 0;
-        attackLength = 1.3f;
     }
 
     void Update()
@@ -58,33 +56,35 @@ public class SoldierZombieControl : MonoBehaviour
 
         if (isAttacking)
         {
-            agent.CalculatePath(Player.position, path);
             if (!attackPlayer && path.status == NavMeshPathStatus.PathComplete)
             {
-                finishAttack = true;
+                agent.CalculatePath(Player.position, path);
+                if (path.status == NavMeshPathStatus.PathComplete)
+                {
+                    finishAttack = true;
+                    animator.SetBool("attack", false);
+                    isAttacking = false;
+                }
+            }
+        }
+    }
+
+    public void Attack()
+    {
+        if (attackPlayer)
+        {
+            float dist = Vector3.Distance(transform.position, Player.position);
+            if (dist >= canAttackRadius)
+                return;
+            playerHealth.getHarm(damagePlayerPoint, true);
+        }
+        else
+        {
+            if (objUpdate && !objUpdate.Damage(damageObjPoint))
+            {
                 animator.SetBool("attack", false);
                 isAttacking = false;
-            }
-            else
-            {
-                attackTime += Time.deltaTime;
-                if (attackTime >= attackLength)
-                {
-                    attackTime = 0.0f;
-                    if (attackPlayer)
-                    {
-                        playerHealth.getHarm(damagePlayerPoint, true);
-                    }
-                    else
-                    {
-                        if (objUpdate && !objUpdate.Damage(damageObjPoint))
-                        {
-                            animator.SetBool("attack", false);
-                            isAttacking = false;
-                            finishAttack = true;
-                        }
-                    }
-                }
+                finishAttack = true;
             }
         }
     }

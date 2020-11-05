@@ -38,6 +38,7 @@ public class GameControl : MonoBehaviour
     public Text zombieNumberText;
 
     public GameObject endGameMenu, gameFail, gameWin;
+    public GameObject gameFailMusic, gameWinMusic;
 
     public LightningScript lightningManager;
     public ZombieSound zombieSound;
@@ -85,8 +86,8 @@ public class GameControl : MonoBehaviour
             }
             else
             {
-                Pause(true);
-                fpsPauseMenu.SetActive(true);
+                /*Pause(true);
+                fpsPauseMenu.SetActive(true);*/
             }
         }
 
@@ -185,25 +186,35 @@ public class GameControl : MonoBehaviour
         yield return new WaitForSeconds(FinishFPSTime);
         FPS.SetActive(false);
         endGameMenu.SetActive(true);
-        StartCoroutine(WaitOneSecond(false));
+        StartCoroutine(WaitOneSecondAfterFinish(false));
     }
 
     public void winGame()
     {
         FPS.SetActive(false);
         endGameMenu.SetActive(true);
-        StartCoroutine(WaitOneSecond(true));
+        StartCoroutine(WaitOneSecondAfterFinish(true));
     }
 
-    private IEnumerator WaitOneSecond(bool win)
+    private IEnumerator WaitOneSecondAfterFinish(bool win)
     {
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         yield return new WaitForSeconds(1);
+        StartCoroutine(GameEnd(win));
+    }
+
+    private IEnumerator GameEnd(bool win)
+    {
         if (win)
             gameWin.SetActive(true);
         else
             gameFail.SetActive(true);
+        yield return new WaitForSeconds(1);
+        if (win)
+            gameWinMusic.SetActive(true);
+        else
+            gameFailMusic.SetActive(true);
     }
 
     public void ReloadGame()

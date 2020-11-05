@@ -59,11 +59,6 @@ public class PrefabGenerator : MonoBehaviour
 
             CreateDelete();
         }
-
-        if (currObj == null || currObj.tag != "Wall")
-        {
-            adjacentWallCheck.position = new Vector3(1000, 1000, 1000);
-        }
     }
 
     void moveObject()
@@ -196,7 +191,6 @@ public class PrefabGenerator : MonoBehaviour
         if (!res)
         {
             currObj = null;
-            Debug.Log("Does not have enough money");
             return;
         }
         else
