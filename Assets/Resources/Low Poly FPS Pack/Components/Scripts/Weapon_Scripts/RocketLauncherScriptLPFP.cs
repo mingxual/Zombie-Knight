@@ -63,7 +63,7 @@ public class RocketLauncherScriptLPFP : MonoBehaviour {
 	private bool isInspecting;
 
 	//How much ammo is currently left
-	private int currentAmmo;
+	public int currentAmmo;
 	//Totalt amount of ammo
 	public int ammo = 1;
 	//Check if out of ammo
@@ -108,8 +108,6 @@ public class RocketLauncherScriptLPFP : MonoBehaviour {
 	public Text currentAmmoText;
 	public Image currWeaponIcon;
 	public Sprite exampleIcon;
-
-	private bool firstActive = false;
 
 	[System.Serializable]
 	public class prefabs
@@ -167,17 +165,6 @@ public class RocketLauncherScriptLPFP : MonoBehaviour {
 		shootAudioSource.clip = SoundClips.shootSound;
 
 		currWeaponIcon.sprite = exampleIcon;
-
-		if(!firstActive)
-        {
-			currentAmmo = ammo;
-			WeaponSwitch.instance.rechargeMagazine(ammo);
-			firstActive = true;
-		}
-		else
-        {
-			WeaponSwitch.instance.rechargeMagazine(0);
-        }
 	}
 
 
@@ -337,6 +324,7 @@ public class RocketLauncherScriptLPFP : MonoBehaviour {
 				
 			//Remove 1 bullet from ammo
 			currentAmmo -= 1;
+			WeaponSwitch.instance.decreaseAmmo();
 
 			shootAudioSource.clip = SoundClips.shootSound;
 			shootAudioSource.Play ();
