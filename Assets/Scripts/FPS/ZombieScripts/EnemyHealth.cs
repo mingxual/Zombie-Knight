@@ -9,8 +9,7 @@ public class EnemyHealth : MonoBehaviour
     public NavMeshAgent agent;
     public Animator animator;
 
-    public int totalHealth;
-    private int currHealth;
+    public int totalHealth, currHealth;
 
     public int value;
 

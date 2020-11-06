@@ -571,7 +571,7 @@ public class PumpShotgunScriptLPFP : MonoBehaviour {
 
 		//Timescale settings
 		//Change timescale to normal when 1 key is pressed
-		if (Input.GetKeyDown (KeyCode.Alpha1)) 
+		/*if (Input.GetKeyDown (KeyCode.Alpha1)) 
 		{
 			Time.timeScale = 1.0f;
 			timescaleText.text = "1.0";
@@ -599,7 +599,7 @@ public class PumpShotgunScriptLPFP : MonoBehaviour {
 		{
 			Time.timeScale = 0.0f;
 			timescaleText.text = "0.0";
-		}
+		}*/
 
 		//Set current ammo text from ammo int
 		currentAmmoText.text = currentAmmo.ToString ();
@@ -653,7 +653,7 @@ public class PumpShotgunScriptLPFP : MonoBehaviour {
 		}
 			
 		//Fire
-		if (Input.GetMouseButton (0) && !outOfAmmo && !isReloading && !isInspecting && !isRunning) 
+		if (Input.GetMouseButton (0) && !outOfAmmo && !isReloading && !isRunning) 
 		{
 			if (Time.time - lastFired > 1 / fireRate) 
 			{
@@ -786,7 +786,7 @@ public class PumpShotgunScriptLPFP : MonoBehaviour {
 		{
 			anim.SetTrigger ("Inspect");
 		}
-
+		/*
 		//Toggle holster weapon when pressing E key
 		if (Input.GetKeyDown (KeyCode.E) && !hasBeenHolstered) 
 		{
@@ -815,7 +815,7 @@ public class PumpShotgunScriptLPFP : MonoBehaviour {
 		{
 			anim.SetBool ("Holster", false);
 		}
-
+		*/
 		//Reload 
 		if (Input.GetKeyDown (KeyCode.R) && !isReloading && !isInspecting) 
 		{

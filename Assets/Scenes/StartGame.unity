@@ -10964,6 +10964,7 @@ GameObject:
   - component: {fileID: 1392680648}
   - component: {fileID: 1392680647}
   - component: {fileID: 1392680646}
+  - component: {fileID: 1392680649}
   m_Layer: 0
   m_Name: Main Terrain
   m_TagString: Dirt
@@ -10996,7 +10997,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 311d00f267f21274bbb880e9363817aa, type: 3}
 --- !u!23 &1392680647
@@ -11048,6 +11049,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1392680644}
   m_Mesh: {fileID: 4300000, guid: 311d00f267f21274bbb880e9363817aa, type: 3}
+--- !u!54 &1392680649
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1392680644}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1402024193
 GameObject:
   m_ObjectHideFlags: 0
@@ -12010,8 +12027,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dffd13763c4bfc945b2e4436a04dbc6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPos: {x: 5.54, y: -6.26, z: 26.8}
-  endPos: {x: -1.81, y: -6.26, z: 26.8}
+  startPos: {x: 5.54, y: -6.016, z: 27.23}
+  endPos: {x: -1.81, y: -6.016, z: 27.23}
   totalTime: 30
   option: 2
   handbook: {fileID: 0}
@@ -12058,7 +12075,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1494043962}
   m_LocalRotation: {x: -0, y: -0.72883385, z: -0, w: 0.68469065}
-  m_LocalPosition: {x: 5.38, y: -5.995, z: 27.23}
+  m_LocalPosition: {x: 5.38, y: -6.016, z: 27.23}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_Children:
   - {fileID: 395999447}

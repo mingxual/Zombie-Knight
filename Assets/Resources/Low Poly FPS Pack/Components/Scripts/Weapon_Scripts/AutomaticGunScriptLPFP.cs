@@ -586,7 +586,7 @@ public class AutomaticGunScriptLPFP : MonoBehaviour {
 
 		//Timescale settings
 		//Change timescale to normal when 1 key is pressed
-		if (Input.GetKeyDown (KeyCode.Alpha1)) 
+		/*if (Input.GetKeyDown (KeyCode.Alpha1)) 
 		{
 			Time.timeScale = 1.0f;
 			timescaleText.text = "1.0";
@@ -614,7 +614,7 @@ public class AutomaticGunScriptLPFP : MonoBehaviour {
 		{
 			Time.timeScale = 0.0f;
 			timescaleText.text = "0.0";
-		}
+		}*/
 
 		//Set current ammo text from ammo int
 		currentAmmoText.text = currentAmmo.ToString ();
@@ -624,14 +624,14 @@ public class AutomaticGunScriptLPFP : MonoBehaviour {
 		AnimationCheck ();
 
 		//Play knife attack 1 animation when Q key is pressed
-		if (Input.GetKeyDown (KeyCode.Q) && !isInspecting) 
+		if (Input.GetKeyDown (KeyCode.Q)) 
 		{
-			anim.Play ("Knife Attack 1", 0, 0f);
+			anim.Play ("Knife Attack 2", 0, 0f);
 		}
 		//Play knife attack 2 animation when F key is pressed
 		if (Input.GetKeyDown (KeyCode.F) && !isInspecting) 
 		{
-			anim.Play ("Knife Attack 2", 0, 0f);
+			anim.Play ("Knife Attack 1", 0, 0f);
 		}
 			
 		//Throw grenade when pressing G key
@@ -669,7 +669,7 @@ public class AutomaticGunScriptLPFP : MonoBehaviour {
 			
 		//AUtomatic fire
 		//Left click hold 
-		if (Input.GetMouseButton (0) && !outOfAmmo && !isReloading && !isInspecting && !isRunning) 
+		if (Input.GetMouseButton (0) && !outOfAmmo && !isReloading && !isRunning) 
 		{
 			//Shoot automatic
 			if (Time.time - lastFired > 1 / fireRate) 
@@ -797,6 +797,7 @@ public class AutomaticGunScriptLPFP : MonoBehaviour {
 			anim.SetTrigger ("Inspect");
 		}
 
+		/*
 		//Toggle weapon holster when E key is pressed
 		if (Input.GetKeyDown (KeyCode.E) && !hasBeenHolstered) 
 		{
@@ -824,7 +825,7 @@ public class AutomaticGunScriptLPFP : MonoBehaviour {
 		else 
 		{
 			anim.SetBool ("Holster", false);
-		}
+		}*/
 
 		//Reload 
 		if (Input.GetKeyDown (KeyCode.R) && !isReloading && !isInspecting) 

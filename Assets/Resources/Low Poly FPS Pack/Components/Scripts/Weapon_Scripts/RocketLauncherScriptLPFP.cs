@@ -236,7 +236,7 @@ public class RocketLauncherScriptLPFP : MonoBehaviour {
 
 		//Timescale settings
 		//Change timescale to normal is 1 key is pressed
-		if (Input.GetKeyDown (KeyCode.Alpha1)) 
+		/*if (Input.GetKeyDown (KeyCode.Alpha1)) 
 		{
 			Time.timeScale = 1.0f;
 			timescaleText.text = "1.0";
@@ -264,7 +264,7 @@ public class RocketLauncherScriptLPFP : MonoBehaviour {
 		{
 			Time.timeScale = 0.0f;
 			timescaleText.text = "0.0";
-		}
+		}*/
 
 		//Set current ammo text from ammo int
 		currentAmmoText.text = currentAmmo.ToString ();
@@ -308,7 +308,7 @@ public class RocketLauncherScriptLPFP : MonoBehaviour {
 		}
 			
 		//Shooting 
-		if (Input.GetMouseButtonDown (0) && !outOfAmmo && !isReloading && !isInspecting && !isRunning) 
+		if (Input.GetMouseButtonDown (0) && !outOfAmmo && !isReloading && !isRunning) 
 		{
 			anim.Play ("Fire", 0, 0f);
 		
@@ -379,7 +379,7 @@ public class RocketLauncherScriptLPFP : MonoBehaviour {
 		{
 			anim.SetTrigger ("Inspect");
 		}
-
+		/*
 		//Togggle weapon holster when E key is pressed
 		if (Input.GetKeyDown (KeyCode.E) && !hasBeenHolstered) 
 		{
@@ -407,7 +407,7 @@ public class RocketLauncherScriptLPFP : MonoBehaviour {
 		else 
 		{
 			anim.SetBool ("Holster", false);
-		}
+		}*/
 
 		//Walking when pressing down WASD keys
 		if (Input.GetKey (KeyCode.W) && !isRunning || 

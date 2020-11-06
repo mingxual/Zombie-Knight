@@ -66,6 +66,7 @@ public class GameControl : MonoBehaviour
         Physics.IgnoreLayerCollision(8, 19);
         Physics.IgnoreLayerCollision(9, 19);
         Physics.IgnoreLayerCollision(18, 19);
+        Physics.IgnoreLayerCollision(18, 18);
     }
 
 

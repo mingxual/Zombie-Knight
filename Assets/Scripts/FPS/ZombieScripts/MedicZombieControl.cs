@@ -29,6 +29,8 @@ public class MedicZombieControl : MonoBehaviour
 
     public float canAttackRadius;
 
+    public Transform bloodEffect;
+
     void Start()
     {
         path = new NavMeshPath();
@@ -150,6 +152,7 @@ public class MedicZombieControl : MonoBehaviour
             if (spikeTimer >= 0.3f)
             {
                 enemyHealth.GetDamage(5, false, false);
+                Instantiate(bloodEffect, transform.position, transform.rotation);
                 if (spike)
                     spike.Damage(1);
                 spikeTimer = 0.0f;

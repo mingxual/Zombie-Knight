@@ -291,7 +291,7 @@ public class BoltActionSniperScriptLPFP : MonoBehaviour {
 
 		//Timescale settings
 		//Change timescale to normal when 1 key is pressed
-		if (Input.GetKeyDown (KeyCode.Alpha1)) 
+		/*if (Input.GetKeyDown (KeyCode.Alpha1)) 
 		{
 			Time.timeScale = 1.0f;
 			timescaleText.text = "1.0";
@@ -319,7 +319,7 @@ public class BoltActionSniperScriptLPFP : MonoBehaviour {
 		{
 			Time.timeScale = 0.0f;
 			timescaleText.text = "0.0";
-		}
+		}*/
 
 		//Set current ammo text from ammo int
 		currentAmmoText.text = currentAmmo.ToString ();
@@ -373,7 +373,7 @@ public class BoltActionSniperScriptLPFP : MonoBehaviour {
 		}
 
 		//Shoot
-		if (Input.GetMouseButton (0) && !outOfAmmo && !isReloading && !isInspecting && !isRunning) 
+		if (Input.GetMouseButton (0) && !outOfAmmo && !isReloading && !isRunning) 
 		{
 			if (Time.time - lastFired > 1 / fireRate) 
 			{
@@ -474,7 +474,7 @@ public class BoltActionSniperScriptLPFP : MonoBehaviour {
 		{
 			anim.SetTrigger ("Inspect");
 		}
-
+		/*
 		//Toggle weapon holster when E key is pressed
 		if (Input.GetKeyDown (KeyCode.E) && !hasBeenHolstered) 
 		{
@@ -502,7 +502,7 @@ public class BoltActionSniperScriptLPFP : MonoBehaviour {
 		else 
 		{
 			anim.SetBool ("Holster", false);
-		}
+		}*/
 
 		//Reload 
 		if (Input.GetKeyDown (KeyCode.R) && !isReloading && !isInspecting) 

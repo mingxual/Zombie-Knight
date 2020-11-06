@@ -20618,7 +20618,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8313105376263134328
 Transform:
   m_ObjectHideFlags: 0
@@ -20763,6 +20763,7 @@ MonoBehaviour:
   flameParticle2: {fileID: 8581205656985709367}
   flameSound: {fileID: 1292484207}
   canAttackRadius: 4
+  bloodEffect: {fileID: 4418440862474872, guid: 31507473202aa8a41bb30f7e08b0727a, type: 3}
 --- !u!1 &8311116850799352880
 GameObject:
   m_ObjectHideFlags: 0

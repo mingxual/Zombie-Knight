@@ -185,7 +185,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3513244716475566934
 Transform:
   m_ObjectHideFlags: 0
@@ -302,6 +302,7 @@ MonoBehaviour:
   damageObjPoint: 50
   damagePlayerPoint: 10
   canAttackRadius: 2.3
+  bloodEffect: {fileID: 4418440862474872, guid: 31507473202aa8a41bb30f7e08b0727a, type: 3}
 --- !u!114 &5070131784972626302
 MonoBehaviour:
   m_ObjectHideFlags: 0

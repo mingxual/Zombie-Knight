@@ -7,13 +7,16 @@ public class PlayerHealth : MonoBehaviour
 {
     // Singleton Class
     public static PlayerHealth instance;
-    public int totalHealth;
+    public int totalHealth, currHealth;
     public Text healthPanel;
     public Image health;
 
-    private int currHealth;
+    public float hpShowBloodBorder;
+    public GameObject bleedingBorder;
 
     public GameObject[] scratchEffects;
+
+    public bool attacked;
 
     private void Awake()
     {
@@ -29,14 +32,17 @@ public class PlayerHealth : MonoBehaviour
 
     void Start()
     {
-        currHealth = totalHealth;        
+        currHealth = totalHealth;
+        attacked = false;
     }
 
-    public void Recover()
+    public void Recover(int val)
     {
-        currHealth += 50;
+        currHealth += val;
         if (currHealth >= totalHealth)
             currHealth = totalHealth;
+        if (currHealth > hpShowBloodBorder)
+            bleedingBorder.SetActive(false);
         healthPanel.text = "HP: " + currHealth.ToString();
         health.fillAmount = (float)currHealth / (float)totalHealth;
     }
@@ -45,6 +51,8 @@ public class PlayerHealth : MonoBehaviour
     {
         currHealth -= points;
         currHealth = currHealth > 0 ? currHealth : 0;
+
+        StartCoroutine(UpdateAttacked());
 
         health.fillAmount = (float)currHealth / (float)totalHealth;
         healthPanel.text = "HP: " + currHealth.ToString();
@@ -55,9 +63,19 @@ public class PlayerHealth : MonoBehaviour
             Vector3.zero, Quaternion.identity);
         }
 
+        if (currHealth <= hpShowBloodBorder)
+            bleedingBorder.SetActive(true);
+
         if (currHealth <= 0)
         {
             GameControl.instance.failGame();
         }
+    }
+
+    private IEnumerator UpdateAttacked()
+    {
+        attacked = true;
+        yield return new WaitForSeconds(0.1f);
+        attacked = false;
     }
 }
