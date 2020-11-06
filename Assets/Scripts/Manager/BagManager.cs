@@ -36,6 +36,14 @@ public class BagManager : MonoBehaviour
     void Start()
     {
         bagContent = new Dictionary<int, int>();
+
+        // gun with unlimited ammos
+        int itemIndex = 4;
+        num_bullets[itemIndex] = 99999;
+        bagContent[itemIndex] = last_cellIndex;
+        GridControl.instance.cells[last_cellIndex].SetCell(weaponIcon[itemIndex], weaponName[itemIndex],
+            damage_points[itemIndex], 99999);
+        last_cellIndex += 1;
     }
 
     // Update is called once per frame

@@ -74,13 +74,17 @@ public class WeaponSwitch : MonoBehaviour
     public void switchWeapon(int index)
     {
         if (currWeapon != null) currWeapon.SetActive(false);
-        currWeapon = weaponList[weaponMagazines[currSelectedIdx].Key];
+        currWeapon = weaponList[weaponMagazines[index].Key];
         currWeapon.SetActive(true);
+        int value = weaponMagazines[index].Value;
+        numAmmoLeft.text = value.ToString();
     }
 
     // Get the bag list from BagManager.cs
     public void getWeaponList()
     {
+        weaponMagazines.Clear();
+
         List<int> num_bullets = BagManager.instance.num_bullets;
         for (int i = 0; i < num_bullets.Count - 1; ++i)
         {
@@ -93,6 +97,50 @@ public class WeaponSwitch : MonoBehaviour
         num_Grenades = num_bullets[num_bullets.Count - 1];
 
         count = weaponMagazines.Count;
+        currSelectedIdx = 0;
+
+        for(int i = 0; i < count; ++i)
+        {
+            currSelectedIdx = i;
+            switchWeapon(i);
+
+            if (currWeapon.GetComponent<AutomaticGunScriptLPFP>())
+            {
+                currWeapon.GetComponent<AutomaticGunScriptLPFP>().currentAmmo = 0;
+                currWeapon.GetComponent<AutomaticGunScriptLPFP>().currentAmmo = rechargeMagazine(currWeapon.GetComponent<AutomaticGunScriptLPFP>().ammo, i);
+            }
+            else if (currWeapon.GetComponent<BoltActionSniperScriptLPFP>())
+            {
+                currWeapon.GetComponent<BoltActionSniperScriptLPFP>().currentAmmo = 0;
+                currWeapon.GetComponent<BoltActionSniperScriptLPFP>().currentAmmo = rechargeMagazine(currWeapon.GetComponent<BoltActionSniperScriptLPFP>().ammo, i);
+            }
+            else if (currWeapon.GetComponent<GrenadeLauncherScriptLPFP>())
+            {
+                currWeapon.GetComponent<GrenadeLauncherScriptLPFP>().currentAmmo = 0;
+                currWeapon.GetComponent<GrenadeLauncherScriptLPFP>().currentAmmo = rechargeMagazine(currWeapon.GetComponent<GrenadeLauncherScriptLPFP>().ammo, i);
+            }
+            else if (currWeapon.GetComponent<HandgunScriptLPFP>())
+            {
+                currWeapon.GetComponent<HandgunScriptLPFP>().currentAmmo = 0;
+                currWeapon.GetComponent<HandgunScriptLPFP>().currentAmmo = rechargeMagazine(currWeapon.GetComponent<HandgunScriptLPFP>().ammo, i);
+            }
+            else if (currWeapon.GetComponent<PumpShotgunScriptLPFP>())
+            {
+                currWeapon.GetComponent<PumpShotgunScriptLPFP>().currentAmmo = 0;
+                currWeapon.GetComponent<PumpShotgunScriptLPFP>().currentAmmo = rechargeMagazine(currWeapon.GetComponent<PumpShotgunScriptLPFP>().ammo, i);
+            }
+            else if (currWeapon.GetComponent<RocketLauncherScriptLPFP>())
+            {
+                currWeapon.GetComponent<RocketLauncherScriptLPFP>().currentAmmo = 0;
+                currWeapon.GetComponent<RocketLauncherScriptLPFP>().currentAmmo = rechargeMagazine(currWeapon.GetComponent<RocketLauncherScriptLPFP>().ammo, i);
+            }
+            else if (currWeapon.GetComponent<SniperScriptLPFP>())
+            {
+                currWeapon.GetComponent<SniperScriptLPFP>().currentAmmo = 0;
+                currWeapon.GetComponent<SniperScriptLPFP>().currentAmmo = rechargeMagazine(currWeapon.GetComponent<SniperScriptLPFP>().ammo, i);
+            }
+        }
+
         currSelectedIdx = 0;
         switchWeapon(currSelectedIdx);
     }
@@ -134,17 +182,47 @@ public class WeaponSwitch : MonoBehaviour
         numAmmoLeft.text = value.ToString();
         weaponMagazines[currSelectedIdx] = new KeyValuePair<int, int>(key, value);
 
-        BagManager.instance.num_bullets[currSelectedIdx] = value;
+        return numAmmoForCharge;
+    }
+
+    public void decreaseAmmo()
+    {
+        int key = weaponMagazines[currSelectedIdx].Key;
+        int value = BagManager.instance.num_bullets[key];
+        value -= 1;
+
+        BagManager.instance.num_bullets[key] = value;
         int cellIndex = BagManager.instance.bagContent[key];
         GridControl.instance.cells[cellIndex].AdjustNumBullets(value);
         if (WeaponDisplayArea.instance.currIndex == cellIndex)
         {
             WeaponDisplayArea.instance.numAmmos.text = value.ToString();
         }
+    }
+
+    public int rechargeMagazine(int capacity, int index)
+    {
+        int key = weaponMagazines[index].Key;
+        int value = weaponMagazines[index].Value;
+
+        int numAmmoForCharge = -1;
+        if (value >= capacity)
+        {
+            numAmmoForCharge = capacity;
+        }
+        else
+        {
+            numAmmoForCharge = value;
+        }
+
+        value -= numAmmoForCharge;
+        numAmmoLeft.text = value.ToString();
+        weaponMagazines[index] = new KeyValuePair<int, int>(key, value);
 
         return numAmmoForCharge;
     }
 }
+
 
 class sortAlgorithm : IComparer<KeyValuePair<int, int>>
 {

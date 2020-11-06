@@ -137,7 +137,7 @@ public class PumpShotgunScriptLPFP : MonoBehaviour {
 	private bool isInspecting;
 
 	//How much ammo is currently left
-	private int currentAmmo;
+	public int currentAmmo;
 	//Totalt amount of ammo
 	[Tooltip("How much ammo the weapon should have.")]
 	public int ammo;
@@ -189,8 +189,6 @@ public class PumpShotgunScriptLPFP : MonoBehaviour {
 	public Image currWeaponIcon;
 	public Sprite exampleIcon;
 
-	private bool firstActive = false;
-
 	[System.Serializable]
 	public class prefabs
 	{  
@@ -238,9 +236,6 @@ public class PumpShotgunScriptLPFP : MonoBehaviour {
 	{
 		//Set the animator component
 		anim = GetComponent<Animator>();
-
-		//Set current ammo to total ammo value
-		currentAmmo = 0;
 
 		muzzleFlashLight.enabled = false;
 
@@ -385,17 +380,6 @@ public class PumpShotgunScriptLPFP : MonoBehaviour {
 
 		//Set the shoot sound to audio source
 		shootAudioSource.clip = SoundClips.shootSound;
-
-		if (!firstActive)
-		{
-			currentAmmo = ammo;
-			WeaponSwitch.instance.rechargeMagazine(ammo);
-			firstActive = true;
-		}
-		else
-		{
-			WeaponSwitch.instance.rechargeMagazine(0);
-		}
 	}
 
     private void LateUpdate () 
@@ -677,6 +661,7 @@ public class PumpShotgunScriptLPFP : MonoBehaviour {
 
 				//Remove 1 bullet from ammo
 				currentAmmo -= 1;
+				WeaponSwitch.instance.decreaseAmmo();
 
 				shootAudioSource.clip = SoundClips.shootSound;
 				shootAudioSource.Play ();
