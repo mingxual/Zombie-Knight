@@ -318,6 +318,7 @@ MonoBehaviour:
   agent: {fileID: 3517747396458597747}
   animator: {fileID: 3567841143432981112}
   totalHealth: 500
+  currHealth: 0
   value: 100
   dead: 0
   blip: {fileID: 7906780807539670536}

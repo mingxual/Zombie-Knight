@@ -49,6 +49,7 @@ public class SpeedUp : MonoBehaviour
         isSpeedingUp = true;
         controller.walkingSpeed = fastSpeed;
         volume.SetActive(true);
+        postProcessLayer.enabled = true;
 
         yield return new WaitForSeconds(speedingTime);
 
@@ -60,5 +61,6 @@ public class SpeedUp : MonoBehaviour
         isSpeedingUp = false;
         controller.walkingSpeed = 5.0f;
         volume.SetActive(false);
+        postProcessLayer.enabled = false;
     }
 }
