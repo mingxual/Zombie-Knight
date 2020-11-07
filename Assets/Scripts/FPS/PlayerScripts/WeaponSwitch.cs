@@ -16,6 +16,8 @@ public class WeaponSwitch : MonoBehaviour
     private List<KeyValuePair<int, int>> weaponMagazines;
 
     public int num_Grenades = 0;
+    public int num_MedicineBags = 0;
+    public int num_Torches = 0;
 
     private void Awake()
     {
@@ -86,7 +88,7 @@ public class WeaponSwitch : MonoBehaviour
         weaponMagazines.Clear();
 
         List<int> num_bullets = BagManager.instance.num_bullets;
-        for (int i = 0; i < num_bullets.Count - 1; ++i)
+        for (int i = 0; i < num_bullets.Count - 3; ++i)
         {
             if (num_bullets[i] > 0)
             {
@@ -94,7 +96,9 @@ public class WeaponSwitch : MonoBehaviour
             }
         }
 
-        num_Grenades = num_bullets[num_bullets.Count - 1];
+        num_Grenades = num_bullets[num_bullets.Count - 3];
+        num_MedicineBags = num_bullets[num_bullets.Count - 2];
+        num_Torches = num_bullets[num_bullets.Count - 1];
 
         count = weaponMagazines.Count;
         currSelectedIdx = 0;
@@ -151,7 +155,7 @@ public class WeaponSwitch : MonoBehaviour
         if (num_Grenades > 0)
         {
             num_Grenades -= 1;
-            int index = BagManager.instance.num_bullets.Count - 1;
+            int index = BagManager.instance.num_bullets.Count - 3;
             BagManager.instance.num_bullets[index] = num_Grenades;
             int cellIndex = BagManager.instance.bagContent[index];
             GridControl.instance.cells[cellIndex].AdjustNumBullets(num_Grenades);
@@ -160,6 +164,38 @@ public class WeaponSwitch : MonoBehaviour
         }
 
         return false;
+    }
+
+    // Check if have medicinebag
+    public bool hasMedicineBag()
+    {
+        return num_MedicineBags > 0;
+    }
+
+    // Check if have torch
+    public bool hasTorch()
+    {
+        return num_Torches > 0;
+    }
+
+    // Deduct one medicinebag
+    public void consumeMedicineBag()
+    {
+        num_MedicineBags -= 1;
+        int index = BagManager.instance.num_bullets.Count - 2;
+        BagManager.instance.num_bullets[index] = num_MedicineBags;
+        int cellIndex = BagManager.instance.bagContent[index];
+        GridControl.instance.cells[cellIndex].AdjustNumBullets(num_MedicineBags);
+    }
+
+    // Deduct one medicinebag
+    public void consumeTorch()
+    {
+        num_Torches -= 1;
+        int index = BagManager.instance.num_bullets.Count - 1;
+        BagManager.instance.num_bullets[index] = num_Torches;
+        int cellIndex = BagManager.instance.bagContent[index];
+        GridControl.instance.cells[cellIndex].AdjustNumBullets(num_Torches);
     }
 
     // Update the count (return the number of ammos available for the current magazine)

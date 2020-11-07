@@ -22,12 +22,12 @@ public class GenerateTorch : MonoBehaviour
     // Check if there is torches in bag
     bool hasTorch()
     {
-        return true;
+        return WeaponSwitch.instance.hasTorch();
     }
 
     // remove one torch from bag
     void consumeOneTorch()
-    { 
-        
+    {
+        WeaponSwitch.instance.consumeTorch();
     }
 }
