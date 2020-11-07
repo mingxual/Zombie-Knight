@@ -217,6 +217,8 @@ public class SniperScriptLPFP : MonoBehaviour {
 
 		//Set the shoot sound to audio source
 		shootAudioSource.clip = SoundClips.shootSound;
+
+		RedDotControl.instance.setActive(false);
 	}
 
     private void LateUpdate () {
@@ -241,13 +243,10 @@ public class SniperScriptLPFP : MonoBehaviour {
 	}
 	
 	private void Update () {
-
 		//Aiming
 		//Toggle camera FOV when right click is held down
-		if(Input.GetButton("Fire2") && !isReloading && !isRunning && !isInspecting) 
+		if (Input.GetButton("Fire2") && !isReloading && !isRunning && !isInspecting) 
 		{
-			RedDotControl.instance.setActive(false);
-
 			gunCamera.fieldOfView = Mathf.Lerp (gunCamera.fieldOfView,
 			aimFOV, fovSpeed * Time.deltaTime);
 
@@ -268,8 +267,6 @@ public class SniperScriptLPFP : MonoBehaviour {
 		} 
 		else 
 		{
-			RedDotControl.instance.setActive(true);
-
 			//When right click is released
 			gunCamera.fieldOfView = Mathf.Lerp(gunCamera.fieldOfView,
 				defaultFov,fovSpeed * Time.deltaTime);
