@@ -5,18 +5,15 @@ using UnityEngine.UI;
 
 public class TutorialManager : MonoBehaviour
 {
-    public enum TYPE { Construction, FPS };
-    public TYPE type; 
-
     public List<Sprite> pics;
     public List<string> descs;
 
     [SerializeField] private Button toNext;
     [SerializeField] private Button toPrev;
+    [SerializeField] private Button close;
     [SerializeField] private Image image;
     [SerializeField] private Text desc;
 
-    [Header("Construction Tutorial")]
     public GameObject objectMenu;
     public GameObject moneyText;
 
@@ -25,6 +22,7 @@ public class TutorialManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        objectMenu.SetActive(false);
         if(index == pics.Count - 1)
         {
             toNext.gameObject.SetActive(false);
@@ -37,31 +35,37 @@ public class TutorialManager : MonoBehaviour
     public void Close()
     {
         gameObject.SetActive(false);
-        if (type == TYPE.Construction)
-        {
-            objectMenu.SetActive(true);
-            moneyText.SetActive(true);
-        }
+        objectMenu.SetActive(true);
+        moneyText.SetActive(true);
     }
 
     public void OnNext()
     {
         index += 1;
         changeDisplay();
-
-        toPrev.gameObject.SetActive(true);
-        bool boundary = index == pics.Count - 1 ? false : true;
-        toNext.gameObject.SetActive(boundary);
+        if (index == pics.Count - 1)
+        {
+            toNext.gameObject.SetActive(false);
+            close.gameObject.SetActive(true);
+        }
+        if (index == 1)
+        {
+            toPrev.gameObject.SetActive(true);
+        }
     }
 
     public void OnPrev()
     {
         index -= 1;
         changeDisplay();
-
-        toNext.gameObject.SetActive(true);
-        bool boundary = index == 0 ? false : true;
-        toPrev.gameObject.SetActive(boundary);
+        if (index == pics.Count - 2)
+        {
+            toNext.gameObject.SetActive(true);
+        }
+        if (index == 0)
+        {
+            toPrev.gameObject.SetActive(false);
+        }
     }
 
     private void changeDisplay()

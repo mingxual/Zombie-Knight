@@ -134,6 +134,7 @@ MonoBehaviour:
   maxTime: 0.25
   explosionRadius: 3
   explosionForce: 5000
+  damagePoints: 300
 --- !u!114 &4526619541399704512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,6 +149,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collided: 0
   pivotCenter: 1
-  value: 0
   percentToUnitLength: 0.55
   cost: 70

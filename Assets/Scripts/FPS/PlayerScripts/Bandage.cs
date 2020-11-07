@@ -66,12 +66,12 @@ public class Bandage : MonoBehaviour
     // Check if there is bandage in bag
     bool hasBandage()
     {
-        return true;
+        return WeaponSwitch.instance.hasMedicineBag();
     }
 
     // remove one bandage from bag
     void consumeOneBandage()
-    { 
-    
+    {
+        WeaponSwitch.instance.consumeMedicineBag();
     }
 }

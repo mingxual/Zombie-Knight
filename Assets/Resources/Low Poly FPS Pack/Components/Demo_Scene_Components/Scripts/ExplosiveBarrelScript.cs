@@ -89,7 +89,7 @@ public class ExplosiveBarrelScript : MonoBehaviour {
 			// If the explosion hits objects with "ZombieBody" tag
 			if (hit.GetComponent<Collider>().tag == "ZombieBody")
 			{
-				hit.gameObject.GetComponent<EnemyHealth>().GetDamage(damagePoints, false);
+				hit.transform.parent.GetComponent<EnemyHealth>().GetDamage(damagePoints, false);
 			}
 
 			//If the explosion hits "Player" tag

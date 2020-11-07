@@ -34,7 +34,7 @@ public class ProjectileScript : MonoBehaviour {
 	[Tooltip("Explosion intensity")]
 	public float power = 250.0F;
 	[Tooltip("Explosion damage")]
-	public int damagePoints = 60;
+	public int damagePoints;
 
 	[Header("Rocket Launcher Projectile")]
 	[Tooltip("Enabled if the projectile has particle effects")]
@@ -171,7 +171,7 @@ public class ProjectileScript : MonoBehaviour {
 			Rigidbody rb = hit.GetComponent<Rigidbody> ();
 
 			//Add force to nearby rigidbodies
-			if (rb != null)
+			if (rb != null && hit.GetComponent<Collider>().tag != "Player")
 				rb.AddExplosionForce (power * 50, explosionPos, radius, 3.0F);
 
 			//If the explosion hit the tags "Target", and "isHit" is false
@@ -202,13 +202,13 @@ public class ProjectileScript : MonoBehaviour {
 			// If the projectile explosion hits objects with "ZombieBody" tag
 			if (hit.GetComponent<Collider>().tag == "ZombieBody")
 			{
-				hit.gameObject.GetComponent<EnemyHealth>().GetDamage(60, false);
+				hit.transform.parent.GetComponent<EnemyHealth>().GetDamage(300, false);
 			}
 
 			//If the explosion hits "Player" tag
 			if (hit.GetComponent<Collider>().tag == "Player")
 			{
-				hit.GetComponent<PlayerHealth>().getHarm(damagePoints, false);
+				hit.GetComponent<PlayerHealth>().getHarm(50, false);
 			}
 		}
 	}
