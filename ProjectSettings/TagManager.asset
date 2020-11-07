@@ -46,7 +46,7 @@ TagManager:
   - Enemy
   - Zombie
   - IngoreMesh
-  - Fense
+  - FenseDoor
   - IgnoreFense
   - Inspection
   - SpeedUp
@@ -55,7 +55,7 @@ TagManager:
   - Radar
   - Navmesh Agent Collider
   - SpikeCollider
-  - Knife
+  - Fense
   - 
   - 
   - 

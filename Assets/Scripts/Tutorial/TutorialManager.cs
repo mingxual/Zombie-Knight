@@ -5,35 +5,26 @@ using UnityEngine.UI;
 
 public class TutorialManager : MonoBehaviour
 {
-    public static TutorialManager instance;
+    public enum TYPE { Construction, FPS };
+    public TYPE type; 
+
     public List<Sprite> pics;
     public List<string> descs;
 
     [SerializeField] private Button toNext;
-    [SerializeField] private Button toLast;
+    [SerializeField] private Button toPrev;
     [SerializeField] private Image image;
     [SerializeField] private Text desc;
 
+    [Header("Construction Tutorial")]
+    public GameObject objectMenu;
+    public GameObject moneyText;
+
     private int index = 0;
-
-
-    private void Awake()
-    {
-        if(instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(this);
-        }
-    }
-
 
     // Start is called before the first frame update
     void Start()
     {
-        toLast.gameObject.SetActive(false);
         if(index == pics.Count - 1)
         {
             toNext.gameObject.SetActive(false);
@@ -43,15 +34,14 @@ public class TutorialManager : MonoBehaviour
         desc.text = descs[index];
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void OnClose()
+    public void Close()
     {
         gameObject.SetActive(false);
+        if (type == TYPE.Construction)
+        {
+            objectMenu.SetActive(true);
+            moneyText.SetActive(true);
+        }
     }
 
     public void OnNext()
@@ -59,19 +49,19 @@ public class TutorialManager : MonoBehaviour
         index += 1;
         changeDisplay();
 
-        toLast.gameObject.SetActive(true);
+        toPrev.gameObject.SetActive(true);
         bool boundary = index == pics.Count - 1 ? false : true;
         toNext.gameObject.SetActive(boundary);
     }
 
-    public void OnLast()
+    public void OnPrev()
     {
         index -= 1;
         changeDisplay();
 
         toNext.gameObject.SetActive(true);
         bool boundary = index == 0 ? false : true;
-        toLast.gameObject.SetActive(boundary);
+        toPrev.gameObject.SetActive(boundary);
     }
 
     private void changeDisplay()

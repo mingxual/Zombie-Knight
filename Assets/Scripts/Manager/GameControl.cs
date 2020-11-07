@@ -43,7 +43,7 @@ public class GameControl : MonoBehaviour
     public LightningScript lightningManager;
     public ZombieSound zombieSound;
 
-    public GameObject recoverButton;
+    public GameObject playerModel;
 
     public GameObject[] mLevels;
 
@@ -67,6 +67,7 @@ public class GameControl : MonoBehaviour
         Physics.IgnoreLayerCollision(9, 19);
         Physics.IgnoreLayerCollision(18, 19);
         Physics.IgnoreLayerCollision(18, 18);
+        Physics.IgnoreLayerCollision(18, 20);
     }
 
 
@@ -112,7 +113,11 @@ public class GameControl : MonoBehaviour
 
         player.GetComponent<SpeedUp>().turnOffSpeedUp();
 
-        recoverButton.SetActive(true);
+        playerModel.SetActive(true);
+        Vector3 pos = player.transform.position;
+        pos.y = playerModel.transform.position.y;
+        playerModel.transform.position = pos;
+        playerModel.transform.rotation = player.transform.rotation;
     }
 
     public void switchToFPS()
@@ -149,6 +154,8 @@ public class GameControl : MonoBehaviour
         generator.SetActive(true);
         currZombieNum = generator.GetComponent<ZombieGenerator>().zombieList.Length;
         zombieNumberText.text = "Zombie Left: " + currZombieNum.ToString();
+
+        playerModel.SetActive(false);
     }
 
     public void killOneZombie(int val)
