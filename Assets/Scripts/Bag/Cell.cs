@@ -45,6 +45,11 @@ public class Cell : MonoBehaviour
     {
         numBullets = num_bullets;
         numAmmos.text = num_bullets.ToString();
+
+        if(WeaponDisplayArea.instance.name == weaponName)
+        {
+            panel.SetNum(numBullets);
+        }
     }
 
 
