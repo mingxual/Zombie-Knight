@@ -88,8 +88,8 @@ public class GameControl : MonoBehaviour
             }
             else
             {
-                /*Pause(true);
-                fpsPauseMenu.SetActive(true);*/
+                Pause(true);
+                fpsPauseMenu.SetActive(true);
             }
         }
 

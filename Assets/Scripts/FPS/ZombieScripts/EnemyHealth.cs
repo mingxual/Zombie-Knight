@@ -32,7 +32,6 @@ public class EnemyHealth : MonoBehaviour
     {
         if (dead) return;
         currHealth -= damage;
-        print("hurt" + damage);
         
         speedUp.increaseFillin(damage);
 
