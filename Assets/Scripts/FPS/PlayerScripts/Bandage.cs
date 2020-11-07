@@ -30,11 +30,12 @@ public class Bandage : MonoBehaviour
             isBandaging = true;
             canBandage = false;
             finishBandage = false;
-            bandageMenu.SetActive(true);
-            crossHair.SetActive(false);
         }
         if (Input.GetKey(KeyCode.E) && isBandaging && hasBandage())
         {
+            bandageMenu.SetActive(true);
+            crossHair.SetActive(false);
+
             if (body.velocity != Vector3.zero || health.attacked || Input.GetMouseButton(0))
             {
                 finishBandage = true;
