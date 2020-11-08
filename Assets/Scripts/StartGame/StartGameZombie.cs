@@ -17,12 +17,21 @@ public class StartGameZombie : MonoBehaviour
     public FPSControllerLPFP.FpsControllerLPFP controller;
     public StartSniper sniper;
 
+    void Start()
+    {
+        Time.timeScale = 1f;
+        AudioListener.volume = 1;
+    }
+
     void Update()
     {
         currTime += Time.deltaTime;
         if (currTime > totalTime)
             currTime = 0.0f;
         transform.position = Vector3.Lerp(startPos, endPos, currTime/totalTime);
+
+        if (Input.GetKeyDown(KeyCode.J))
+            print(Time.timeScale);
     }
 
     void OnCollisionEnter(Collision collision)

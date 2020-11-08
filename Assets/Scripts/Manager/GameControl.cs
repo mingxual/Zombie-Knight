@@ -76,6 +76,8 @@ public class GameControl : MonoBehaviour
         isFPS = false;
         lightForScene.SetActive(false);
         bag.SetActive(false);
+        Time.timeScale = 1f;
+        AudioListener.volume = 1;
     }
     
     void Update()

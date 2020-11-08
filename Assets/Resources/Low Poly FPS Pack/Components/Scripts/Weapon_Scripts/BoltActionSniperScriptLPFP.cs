@@ -327,7 +327,7 @@ public class BoltActionSniperScriptLPFP : MonoBehaviour {
 		AnimationCheck ();
 
 		//Play knife attack 1 animation when Q key is pressed
-		if (Input.GetKeyDown (KeyCode.Q) && !isInspecting) 
+		/*if (Input.GetKeyDown (KeyCode.Q) && !isInspecting) 
 		{
 			anim.Play ("Knife Attack 1", 0, 0f);
 		}
@@ -335,7 +335,7 @@ public class BoltActionSniperScriptLPFP : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.F) && !isInspecting) 
 		{
 			anim.Play ("Knife Attack 2", 0, 0f);
-		}
+		}*/
 
 		//Throw grenade when pressing G key
 		if (Input.GetKeyDown (KeyCode.G) && !isInspecting) 
